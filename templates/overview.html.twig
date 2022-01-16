@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the Theme Inspector overview page.
+ */
+#}
+{% macro button(name, label) %}
+  <button class="ti-toolbar__button" title="{{ label }}" data-ti-toolbar-button="{{ name }}">
+    <svg aria-hidden="true">
+      <use xlink:href="#icon-{{ name }}"></use>
+    </svg>
+  </button>
+{% endmacro %}
+{# <icons #}
+{{ source('@theme_inspector/toolbar-buttons.svg') }}
+{# </icons #}
+<div class="ti-overview" data-ti-app data-ti-cloak>
+  {# <siderbar> #}
+  <div class="ti-overview__sidebar ti-sidebar" data-ti-sidebar>
+    <h2 class="ti-sidebar__h2">{{ 'Previews'|t }}</h2>
+    <form class="ti-sidebar__search" data-ti-search>
+      <label for="ti-sidebar-search" class="visually-hidden">{{ 'Find preview'|t }}</label>
+      <input placeholder="{{ 'Search'|t }}" id="ti-sidebar-search" type="search" class="ti-sidebar__search-input" data-ti-search-input/>
+    </form>
+    {% if preview_tree|length == 0 %}
+      <p>{{ 'No previews available. Try to enable some of Theme Inspector sub-modules.'|t }}</p>
+    {% endif %}
+    {% for category_label, category_previews in preview_tree %}
+      <h3 class="ti-sidebar__h3" data-ti-category-header>{{ category_label }}</h3>
+      <ul class="ti-sidebar__list">
+        {% for preview in category_previews %}
+          <li>
+            <a href="{{ preview.url }}" data-ti-preview-link>
+              {{ preview.label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+  {# </siderbar> #}
+  {# <main-content> #}
+  <div class="ti-overview__main-content ti-main-content" data-ti-main-content>
+    {# <toolbar> #}
+    <div class="ti-toolbar" data-ti-toolbar>
+      {{ _self.button('reload', 'Reload') }}
+      {{ _self.button('debug-overlay', 'Debug overlay') }}
+      {{ _self.button('code', 'Source code') }}
+      {{ _self.button('outline', 'Apply outlines to the preview') }}
+      {{ _self.button('editable', 'Edit content') }}
+      {{ _self.button('auth', 'Use current account to preview') }}
+      {{ _self.button('fullscreen', 'Fullscreen') }}
+      {{ _self.button('new-window', 'Open in new window') }}
+      <div class="ti-toolbar__separator"></div>
+      <div class="ti-toolbar__zoom-widget ti-zoom-widget" data-ti-zoom-widget>
+        <button class="ti-zoom-widget__button" data-ti-zoom-out aria-label="{{ 'Zoom out'|t }}">–</button>
+        <output class="ti-zoom-widget__output" data-ti-zoom>100%</output>
+        <button class="ti-zoom-widget__button" data-ti-zoom-in aria-label="{{ 'Zoom in'|t }}">+</button>
+      </div>
+      <div class="ti-toolbar__variation-list">
+        <label for="ti-toolbar-variation-list">{{ 'Variation' }}:</label>
+        <select id="ti-toolbar-variation-list" data-ti-toolbar-variation-list></select>
+      </div>
+    </div>
+    {# </toolbar> #}
+    {# <preview> #}
+    <div class="ti-preview ti-main-content__preview" data-ti-preview>
+      <iframe class="ti-preview__doc" title="" srcdoc="No preview selected." allowfullscreen></iframe>
+    </div>
+    {# </preview> #}
+  </div>
+  {# <main> #}
+</div>
+
+{{ attach_library('theme_inspector/overview') }}

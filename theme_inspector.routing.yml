@@ -1,0 +1,32 @@
+theme_inspector.overview:
+  path: '/admin/appearance/theme-inspector'
+  defaults:
+    _controller: '\Drupal\theme_inspector\Controller\OverviewController'
+    theme: ''
+  requirements:
+    _permission: 'access theme inspector'
+  options:
+    parameters:
+      theme: {type: ti_theme}
+
+theme_inspector.overview_theme:
+  path: '/admin/appearance/theme-inspector/{theme}'
+  defaults:
+    _controller: '\Drupal\theme_inspector\Controller\OverviewController'
+  requirements:
+    _permission: 'access theme inspector'
+  options:
+    parameters:
+      theme: {type: ti_theme}
+
+theme_inspector.preview:
+  path: '/theme-inspector/preview/{theme}/{preview}'
+  defaults:
+    _controller: '\Drupal\theme_inspector\Controller\PreviewController'
+  requirements:
+    _csrf_token: 'TRUE'
+  options:
+    parameters:
+      theme: {type: ti_theme}
+      preview: {type: ti_preview}
+

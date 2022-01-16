@@ -1,0 +1,388 @@
+/* Adopted from Storybook's outline addon. */
+.ti-outline article {
+  outline: 1px solid #3498db !important;
+}
+
+.ti-outline nav {
+  outline: 1px solid #0088c3 !important;
+}
+
+.ti-outline aside {
+  outline: 1px solid #33a0ce !important;
+}
+
+.ti-outline section {
+  outline: 1px solid #66b8da !important;
+}
+
+.ti-outline header {
+  outline: 1px solid #99cfe7 !important;
+}
+
+.ti-outline footer {
+  outline: 1px solid #cce7f3 !important;
+}
+
+.ti-outline h1 {
+  outline: 1px solid #162544 !important;
+}
+
+.ti-outline h2 {
+  outline: 1px solid #314e6e !important;
+}
+
+.ti-outline h3 {
+  outline: 1px solid #3e5e85 !important;
+}
+
+.ti-outline h4 {
+  outline: 1px solid #449baf !important;
+}
+
+.ti-outline h5 {
+  outline: 1px solid #c7d1cb !important;
+}
+
+.ti-outline h6 {
+  outline: 1px solid #4371d0 !important;
+}
+
+.ti-outline main {
+  outline: 1px solid #2f4f90 !important;
+}
+
+.ti-outline address {
+  outline: 1px solid #1a2c51 !important;
+}
+
+.ti-outline div {
+  outline: 1px solid #036cdb !important;
+}
+
+.ti-outline p {
+  outline: 1px solid #ac050b !important;
+}
+
+.ti-outline hr {
+  outline: 1px solid #ff063f !important;
+}
+
+.ti-outline pre {
+  outline: 1px solid #850440 !important;
+}
+
+.ti-outline blockquote {
+  outline: 1px solid #f1b8e7 !important;
+}
+
+.ti-outline ol {
+  outline: 1px solid #ff050c !important;
+}
+
+.ti-outline ul {
+  outline: 1px solid #d90416 !important;
+}
+
+.ti-outline li {
+  outline: 1px solid #d90416 !important;
+}
+
+.ti-outline dl {
+  outline: 1px solid #fd3427 !important;
+}
+
+.ti-outline dt {
+  outline: 1px solid #ff0043 !important;
+}
+
+.ti-outline dd {
+  outline: 1px solid #e80174 !important;
+}
+
+.ti-outline figure {
+  outline: 1px solid #f0b !important;
+}
+
+.ti-outline figcaption {
+  outline: 1px solid #bf0032 !important;
+}
+
+.ti-outline table {
+  outline: 1px solid #00cc99 !important;
+}
+
+.ti-outline caption {
+  outline: 1px solid #37ffc4 !important;
+}
+
+.ti-outline thead {
+  outline: 1px solid #98daca !important;
+}
+
+.ti-outline tbody {
+  outline: 1px solid #64a7a0 !important;
+}
+
+.ti-outline tfoot {
+  outline: 1px solid #22746b !important;
+}
+
+.ti-outline tr {
+  outline: 1px solid #86c0b2 !important;
+}
+
+.ti-outline th {
+  outline: 1px solid #a1e7d6 !important;
+}
+
+.ti-outline td {
+  outline: 1px solid #3f5a54 !important;
+}
+
+.ti-outline col {
+  outline: 1px solid #6c9a8f !important;
+}
+
+.ti-outline colgroup {
+  outline: 1px solid #6c9a9d !important;
+}
+
+.ti-outline button {
+  outline: 1px solid #da8301 !important;
+}
+
+.ti-outline datalist {
+  outline: 1px solid #c06000 !important;
+}
+
+.ti-outline fieldset {
+  outline: 1px solid #d95100 !important;
+}
+
+.ti-outline form {
+  outline: 1px solid #d23600 !important;
+}
+
+.ti-outline input {
+  outline: 1px solid #fca600 !important;
+}
+
+.ti-outline keygen {
+  outline: 1px solid #b31e00 !important;
+}
+
+.ti-outline label {
+  outline: 1px solid #ee8900 !important;
+}
+
+.ti-outline legend {
+  outline: 1px solid #de6d00 !important;
+}
+
+.ti-outline meter {
+  outline: 1px solid #e8630c !important;
+}
+
+.ti-outline optgroup {
+  outline: 1px solid #b33600 !important;
+}
+
+.ti-outline option {
+  outline: 1px solid #ff8a00 !important;
+}
+
+.ti-outline output {
+  outline: 1px solid #ff9619 !important;
+}
+
+.ti-outline progress {
+  outline: 1px solid #e57c00 !important;
+}
+
+.ti-outline select {
+  outline: 1px solid #e26e0f !important;
+}
+
+.ti-outline textarea {
+  outline: 1px solid #cc5400 !important;
+}
+
+.ti-outline details {
+  outline: 1px solid #33848f !important;
+}
+
+.ti-outline summary {
+  outline: 1px solid #60a1a6 !important;
+}
+
+.ti-outline menu {
+  outline: 1px solid #449da6 !important;
+}
+
+.ti-outline del {
+  outline: 1px solid #bf0000 !important;
+}
+
+.ti-outline ins {
+  outline: 1px solid #400000 !important;
+}
+
+.ti-outline img {
+  outline: 1px solid #22746b !important;
+}
+
+.ti-outline iframe {
+  outline: 1px solid #64a7a0 !important;
+}
+
+.ti-outline embed {
+  outline: 1px solid #98daca !important;
+}
+
+.ti-outline object {
+  outline: 1px solid #00cc99 !important;
+}
+
+.ti-outline param {
+  outline: 1px solid #37ffc4 !important;
+}
+
+.ti-outline video {
+  outline: 1px solid #6ee866 !important;
+}
+
+.ti-outline audio {
+  outline: 1px solid #027353 !important;
+}
+
+.ti-outline source {
+  outline: 1px solid #012426 !important;
+}
+
+.ti-outline canvas {
+  outline: 1px solid #a2f570 !important;
+}
+
+.ti-outline track {
+  outline: 1px solid #59a600 !important;
+}
+
+.ti-outline map {
+  outline: 1px solid #7be500 !important;
+}
+
+.ti-outline area {
+  outline: 1px solid #305900 !important;
+}
+
+.ti-outline a {
+  outline: 1px solid #ff62ab !important;
+}
+
+.ti-outline em {
+  outline: 1px solid #800b41 !important;
+}
+
+.ti-outline strong {
+  outline: 1px solid #ff1583 !important;
+}
+
+.ti-outline i {
+  outline: 1px solid #803156 !important;
+}
+
+.ti-outline b {
+  outline: 1px solid #cc1169 !important;
+}
+
+.ti-outline u {
+  outline: 1px solid #ff0430 !important;
+}
+
+.ti-outline s {
+  outline: 1px solid #f805e3 !important;
+}
+
+.ti-outline small {
+  outline: 1px solid #d107b2 !important;
+}
+
+.ti-outline abbr {
+  outline: 1px solid #4a0263 !important;
+}
+
+.ti-outline q {
+  outline: 1px solid #240018 !important;
+}
+
+.ti-outline cite {
+  outline: 1px solid #64003c !important;
+}
+
+.ti-outline dfn {
+  outline: 1px solid #b4005a !important;
+}
+
+.ti-outline sub {
+  outline: 1px solid #dba0c8 !important;
+}
+
+.ti-outline sup {
+  outline: 1px solid #cc0256 !important;
+}
+
+.ti-outline time {
+  outline: 1px solid #d6606d !important;
+}
+
+.ti-outline code {
+  outline: 1px solid #e04251 !important;
+}
+
+.ti-outline kbd {
+  outline: 1px solid #5e001f !important;
+}
+
+.ti-outline samp {
+  outline: 1px solid #9c0033 !important;
+}
+
+.ti-outline var {
+  outline: 1px solid #d90047 !important;
+}
+
+.ti-outline mark {
+  outline: 1px solid #ff0053 !important;
+}
+
+.ti-outline bdi {
+  outline: 1px solid #bf3668 !important;
+}
+
+.ti-outline bdo {
+  outline: 1px solid #6f1400 !important;
+}
+
+.ti-outline ruby {
+  outline: 1px solid #ff7b93 !important;
+}
+
+.ti-outline rt {
+  outline: 1px solid #ff2f54 !important;
+}
+
+.ti-outline rp {
+  outline: 1px solid #803e49 !important;
+}
+
+.ti-outline span {
+  outline: 1px solid #cc2643 !important;
+}
+
+.ti-outline br {
+  outline: 1px solid #db687d !important;
+}
+
+.ti-outline wbr {
+  outline: 1px solid #db175b !important;
+}

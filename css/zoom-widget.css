@@ -1,0 +1,28 @@
+.ti-zoom-widget {
+  display: flex;
+  align-items: center;
+  border: solid 1px var(--ti-c-border);
+  background: var(--ti-button-bg);
+}
+
+.ti-zoom-widget__output {
+  min-width: 3.5em;
+  text-align: center;
+}
+
+.ti-zoom-widget__button {
+  min-width: 2em;
+  height: 100%;
+  border-style: none;
+  background-color: transparent;
+}
+
+.ti-zoom-widget__button:not(:disabled):hover {
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.ti-zoom-widget__button:not(:disabled):active {
+  cursor: pointer;
+  background-color: #c0c0c0;
+}

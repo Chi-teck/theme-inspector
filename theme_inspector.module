@@ -1,0 +1,42 @@
+<?php declare(strict_types = 1);
+
+/**
+ * @file
+ * Primary module hooks for Theme Inspector module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function theme_inspector_theme(): array {
+  return [
+    'theme_inspector_overview' => [
+      'variables' => [
+        'preview_tree' => [],
+        'theme_name' => NULL,
+        'toolbar_buttons_src' => NULL,
+      ],
+      'template' => 'overview',
+    ],
+    'page__theme_inspector_preview' => [
+      'base hook' => 'page',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function theme_inspector_theme_suggestions_page(): array {
+  return \Drupal::routeMatch()->getRouteName() === 'theme_inspector.preview' ?
+    ['page__theme_inspector_preview'] : [];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function theme_inspector_preprocess_html(array &$variables): void {
+  if (\Drupal::routeMatch()->getRouteName() === 'theme_inspector.preview') {
+    unset($variables['page_top']['toolbar']);
+  }
+}

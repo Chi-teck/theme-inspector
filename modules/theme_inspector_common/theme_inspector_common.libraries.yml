@@ -1,0 +1,7 @@
+progress_bar:
+  js:
+    js/progress-bar.js: { preprocess: false }
+  dependencies:
+    - core/drupal
+    - core/drupal.progress
+    - core/once

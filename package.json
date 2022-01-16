@@ -1,0 +1,24 @@
+{
+  "name": "theme-inspector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint:css": "stylelint css/** !css/prism.css -f verbose",
+    "lint:js": "eslint js/src/** js/preview-inner.js",
+    "lint": "npm run lint:js && npm run lint:css",
+    "start": "rollup -w -c rollup.config.js",
+    "build": "rollup -c rollup.config.js --compact"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "rollup": "^2.60.2",
+    "stylelint": "^14.2.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-order": "^5.0.0"
+  }
+}

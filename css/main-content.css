@@ -1,0 +1,14 @@
+.ti-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: white;
+}
+
+.ti-main-content[data-ti-fullscreen] {
+  padding: 1rem;
+}
+
+.ti-main-content__preview {
+  flex-grow: 1;
+}

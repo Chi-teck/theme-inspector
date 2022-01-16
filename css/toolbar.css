@@ -1,0 +1,74 @@
+@import "zoom-widget.css";
+
+.ti-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border: solid 1px var(--ti-c-border-light);
+  border-radius: 0.25em;
+  gap: 0.5rem;
+  background: var(--ti-toolbar-bg);
+}
+
+.ti-toolbar[ti-data-disabled] {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.ti-toolbar__button {
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+  cursor: pointer;
+  border: outset 1px var(--ti-c-border);
+  background: var(--ti-button-bg);
+}
+
+.ti-toolbar__button[disabled] {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.ti-toolbar__button[data-ti-pressed] {
+  border-style: inset;
+  background: white;
+}
+
+.ti-toolbar__button:not([disabled]):active {
+  border-style: inset;
+}
+
+.ti-toolbar__button:not([disabled]):hover {
+  background: white;
+}
+
+.ti-toolbar__button svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ti-toolbar__separator {
+  height: 80%;
+  border-right: solid 1px #bbb;
+  border-left: solid 1px #fff;
+}
+
+.ti-toolbar__variation-list {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0.5em;
+}
+
+.ti-toolbar__variation-list select {
+  min-width: 5em;
+}
+
+[ti-data-disabled] .ti-toolbar__variation-list label,
+[ti-data-disabled] .ti-toolbar__variation-list select {
+  cursor: default;
+}
+
+.ti-toolbar__zoom-widget {
+  height: 26px;
+}

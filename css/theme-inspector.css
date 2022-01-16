@@ -1,0 +1,47 @@
+@import "toolbar.css";
+@import "sidebar.css";
+@import "preview.css";
+@import "main-content.css";
+
+.ti-overview {
+  --ti-ration: 1.25;
+  --ti-s-m3: calc(var(--ti-s-m2) / var(--ti-ration));
+  --ti-s-m2: calc(var(--ti-s-m1) / var(--ti-ration));
+  --ti-s-m1: calc(var(--ti-s-0) / var(--ti-ration));
+  --ti-s-0: 1rem;
+  --ti-s-p1: calc(var(--ti-s-0) * var(--ti-ration));
+  --ti-s-p2: calc(var(--ti-s-p1) * var(--ti-ration));
+  --ti-s-p3: calc(var(--ti-s-p2) * var(--ti-ration));
+
+  --ti-c-bg: #f5f5f5;
+  --ti-c-border: #bbb;
+  --ti-c-border-light: #ddd;
+  --ti-toolbar-bg: linear-gradient(to bottom, #f6f6f6, #eee);
+  --ti-button-bg: linear-gradient(to bottom, #fff, #eee);
+  --ti-i-preview-bg:
+    linear-gradient(45deg, #eee 25%, transparent 25%),
+    linear-gradient(-45deg, #eee 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eee 75%),
+    linear-gradient(-45deg, transparent 75%, #eee 75%);
+
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  min-height: 50vh;
+  transition: 0.25s;
+  opacity: 1;
+}
+
+.ti-overview[data-ti-cloak] {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.ti-overview__sidebar {
+  flex-basis: 18rem;
+  flex-shrink: 0;
+}
+
+.ti-overview__main-content {
+  flex-grow: 1;
+}

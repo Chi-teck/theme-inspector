@@ -1,0 +1,17 @@
+{
+    "name": "drupal/theme_inspector",
+    "type": "drupal-module",
+    "description": "Theme Inspector.",
+    "keywords": ["Drupal", "Theming"],
+    "license": "GPL-2.0+",
+    "homepage": "https://www.drupal.org/project/theme_inspector",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/theme_inspector",
+        "source": "https://git.drupalcode.org/project/theme_inspector"
+    },
+    "require": {
+        "php": ">=8.0",
+        "ext-json": "*",
+        "drupal/core": "^9.2"
+    }
+}

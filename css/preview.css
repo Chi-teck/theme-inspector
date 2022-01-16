@@ -1,0 +1,29 @@
+.ti-preview {
+  position: relative;
+  outline: solid 2px var(--ti-c-border-light);
+  outline-offset: -1px;
+  background-image: var(--ti-i-preview-bg);
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  background-size: 20px 20px;
+}
+
+.ti-preview__doc {
+  overflow: scroll;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  resize: horizontal;
+  border-style: none;
+  background: white;
+  box-shadow: 0 0 3px 2px var(--ti-c-border-light);
+}
+
+.ti-preview[data-ti-preview-loading]::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: "";
+  background-color: rgba(245 245 245 / 50%);
+}

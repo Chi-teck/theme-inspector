@@ -1,0 +1,11 @@
+theme_inspector.overview:
+  route_name: theme_inspector.overview
+  title: 'Theme Inspector'
+  base_route: system.themes_page
+  weight: 95
+
+theme_inspector.overview_theme:
+  route_name: theme_inspector.overview_theme
+  title: 'Theme Inspector'
+  parent_id: theme_inspector.overview
+  deriver: Drupal\theme_inspector\Plugin\Derivative\ThemeInspectorLocalTask

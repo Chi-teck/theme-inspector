@@ -1,0 +1,7 @@
+access theme inspector:
+  title: 'Access theme inspector'
+  restrict access: true
+
+administer theme inspector configuration:
+  title: 'Administer theme inspector configuration'
+  restrict access: true

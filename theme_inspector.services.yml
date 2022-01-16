@@ -1,0 +1,31 @@
+services:
+  theme_inspector.theme_param_converter:
+    class: Drupal\theme_inspector\Routing\ThemeParamConverter
+    arguments: ['@config.factory', '@theme_handler']
+    tags:
+      - { name: paramconverter }
+
+  theme_inspector.preview_param_converter:
+    class: Drupal\theme_inspector\Routing\PreviewParamConverter
+    arguments: ['@plugin.manager.theme_preview']
+    tags:
+      - { name: paramconverter }
+
+  theme.negotiator.theme_inspector.preview:
+    class: Drupal\theme_inspector\Theme\PreviewThemeNegotiator
+    tags:
+      - { name: theme_negotiator, priority: 1000 }
+
+  plugin.manager.theme_preview:
+    class: Drupal\theme_inspector\ThemePreviewPluginManager
+    arguments: ['@theme_inspector.url_generator']
+    parent: default_plugin_manager
+
+  theme_inspector.authentication.guest:
+    class: Drupal\theme_inspector\Authentication\Provider\Guest
+    tags:
+      - { name: authentication_provider, provider_id: 'theme_inspector.guest', priority: 100, global: TRUE }
+
+  theme_inspector.url_generator:
+    class: Drupal\theme_inspector\Routing\UrlGenerator
+    arguments: ['@url_generator.non_bubbling']

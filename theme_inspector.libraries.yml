@@ -1,0 +1,32 @@
+overview:
+  js:
+    js/dist/theme-inspector.js: { preprocess: false }
+  css:
+    component:
+      css/theme-inspector.css: { preprocess: false }
+  dependencies:
+    - core/drupal
+    - core/drupal.message
+
+preview_inner:
+  js:
+    js/preview-inner.js: { preprocess: false }
+  css:
+    component:
+      css/preview-inner.css: { preprocess: false }
+  dependencies:
+    - core/drupal
+
+prism:
+  remote: https://prismjs.com
+  license:
+    gpl-compatible: true
+    name: MIT
+    url: https://github.com/PrismJS/prism/blob/master/LICENSE
+  js:
+    js/prism.js: { preprocess: false, minified: true }
+  css:
+    theme:
+      css/prism.css: { preprocess: false, minified: true }
+
+

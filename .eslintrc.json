@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "airbnb"
+  ],
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "Drupal": true
+  },
+  "settings": {
+    "react": {
+      "version": "latest"
+    }
+  },
+  "rules": {
+    "arrow-parens": "off",
+    "no-plusplus": "off",
+    "lines-between-class-members": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+    "prefer-template": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  }
+}

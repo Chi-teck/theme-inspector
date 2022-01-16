@@ -1,0 +1,39 @@
+.ti-debug-overlay {
+  --do-offset: 0.5rem;
+  --do-primary-width: 2px;
+  --do-primary-step: 10rem;
+  --do-primary-color: #989898;
+  --do-secondary-width: calc(var(--do-primary-width) / 1);
+  --do-secondary-step: calc(var(--do-primary-step) / 5);
+  --do-secondary-color: #cdcdcd;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      var(--do-primary-color) calc(var(--do-primary-width) / -2 + var(--do-offset)),
+      var(--do-primary-color) calc(var(--do-primary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-primary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-primary-step) - var(--do-primary-width) / 2 + var(--do-offset))
+    ),
+    repeating-linear-gradient(
+      to right,
+      var(--do-primary-color) calc(var(--do-primary-width) / -2 + var(--do-offset)),
+      var(--do-primary-color) calc(var(--do-primary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-primary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-primary-step) - var(--do-primary-width) / 2 + var(--do-offset))
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--do-secondary-color) calc(var(--do-secondary-width) / -2 + var(--do-offset)),
+      var(--do-secondary-color) calc(var(--do-secondary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-secondary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-secondary-step) - var(--do-secondary-width) / 2 + var(--do-offset))
+    ),
+    repeating-linear-gradient(
+      to right,
+      var(--do-secondary-color) calc(var(--do-secondary-width) / -2 + var(--do-offset)),
+      var(--do-secondary-color) calc(var(--do-secondary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-secondary-width) / 2 + var(--do-offset)),
+      transparent calc(var(--do-secondary-step) - var(--do-secondary-width) / 2 + var(--do-offset))
+    );
+}

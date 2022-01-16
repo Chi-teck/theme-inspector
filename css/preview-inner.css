@@ -1,0 +1,67 @@
+@import "debug-overlay.css";
+@import "outline.css";
+
+[hidden] {
+  display: none !important;
+}
+
+.ti-preview {
+  --ti-zoom-scale: 1;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+@supports (zoom: 100%) {
+  .ti-preview {
+    zoom: var(--ti-zoom-scale);
+  }
+}
+
+@supports not (zoom: 100%) {
+  .ti-preview {
+    transform: scale(var(--ti-zoom-scale));
+    transform-origin: top left;
+  }
+}
+
+html,
+body,
+.dialog-off-canvas-main-canvas {
+  height: 100% !important;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0 !important;
+  background-color: initial !important;
+  background-image: initial !important;
+}
+
+.ti-code {
+  display: block;
+  height: 100%;
+  margin: 0;
+  padding: 0.5em !important;
+  white-space: pre-wrap !important; /* Override Prisma's styles. */
+  border-radius: 0 !important; /* Override Prisma's styles. */
+  background-color: white !important; /* Override Prisma's styles. */
+  font-size: 1rem !important;
+}
+
+.ti-preview-size {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  padding: 0.5em;
+  opacity: 1;
+  color: #555;
+  background-color: #eee;
+  font-size: 14px;
+  line-height: 1; /* Make the line height consistent across all themes. */
+}
+
+.ti-preview-size:not([data-ti-resizing]) {
+  transition: opacity 0.25s;
+  opacity: 0;
+}
