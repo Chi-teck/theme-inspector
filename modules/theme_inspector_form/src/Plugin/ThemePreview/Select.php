@@ -10,9 +10,10 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  *   label = @Translation("Select"),
  *   category = @Translation("Form Elements"),
  *   variations = {
- *     "default" = @Translation("Default"),
- *     "disabled" = @Translation("Disabled"),
+ *     "single" = @Translation("Single"),
  *     "multiple" = @Translation("Multiple"),
+ *     "singe_disabled" = @Translation("Singe (disabled)"),
+ *     "multiple_disabled" = @Translation("Multiple (disabled)"),
  *   },
  * )
  */
@@ -27,7 +28,8 @@ final class Select extends FormElementBase {
         'beta' => 'Beta',
         'gamma' => 'Gamma',
       ],
-      '#multiple' => $variation_id === 'multiple',
+      '#disabled' => \str_contains($variation_id, 'disabled'),
+      '#multiple' => \str_contains($variation_id, 'multiple'),
     ];
   }
 
