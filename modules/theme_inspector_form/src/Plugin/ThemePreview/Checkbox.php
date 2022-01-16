@@ -10,18 +10,38 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  *   label = @Translation("Checkbox"),
  *   category = @Translation("Form Elements"),
  *   variations = {
- *     "default" = @Translation("Default"),
- *     "disabled" = @Translation("Disabled"),
+ *     "single" = @Translation("Single"),
+ *     "multiple" = @Translation("Multiple"),
+ *     "singe_disabled" = @Translation("Singe (disabled)"),
+ *     "multiple_disabled" = @Translation("Multiple (disabled)"),
  *   },
  * )
  */
 final class Checkbox extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
-    return [
-      '#type' => 'checkbox',
-      '#description' => 'Example of checkbox.',
-    ];
+    if ($variation_id === 'single' || $variation_id === 'singe_disabled') {
+      $element = [
+        '#type' => 'checkbox',
+        '#description' => 'Example of checkbox.',
+        '#disabled' => $variation_id === 'singe_disabled',
+      ];
+    }
+    else {
+      $element = [
+        '#type' => 'checkboxes',
+        '#description' => 'Example of checkboxes.',
+        '#disabled' => $variation_id === 'multiple_disabled',
+        '#options' => [
+          $this->random()->sentences(1),
+          $this->random()->sentences(1),
+          $this->random()->sentences(1),
+          $this->random()->sentences(1),
+          $this->random()->sentences(1),
+        ],
+      ];
+    }
+    return $element;
   }
 
 }
