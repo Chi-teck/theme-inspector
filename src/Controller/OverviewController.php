@@ -6,7 +6,6 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\theme_inspector\ThemePreviewPluginManager;
-use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,7 +30,6 @@ final class OverviewController implements ContainerInjectionInterface {
       '#theme_name' => $theme->getName(),
       '#attached' => [
         'drupalSettings' => ['themeInspector' => ['previews' => $registry]],
-//        'library' => ['theme_inspector/prism'],
       ],
     ];
   }
