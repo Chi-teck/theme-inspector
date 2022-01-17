@@ -23,12 +23,12 @@ abstract class FormElementBase extends ThemePreviewPluginBase implements Contain
   }
 
   public function build(string $variation_id): array {
-    return $this->getForm($variation_id, $this->getElement($variation_id));
+    return $this->getForm($this->getElement($variation_id));
   }
 
   abstract protected function getElement(string $variation_id): array;
 
-  private function getForm(string $variation_id, array $element) {
+  private function getForm(array $element): array {
 
     $form = new class implements FormInterface {
 
@@ -37,15 +37,7 @@ abstract class FormElementBase extends ThemePreviewPluginBase implements Contain
       }
 
       public function buildForm(array $form, FormStateInterface $form_state): array {
-        $variation_id = \func_get_arg(2);
-        $element = \func_get_arg(3);
-        $common = [
-          '#title' => 'Example',
-          '#required' => TRUE,
-          '#disabled' => $variation_id === 'disabled',
-          '#placeholder' => 'Placeholder',
-        ];
-        return ['example' => $element + $common];
+        return ['example' => \func_get_arg(2)];
       }
 
       public function validateForm(array &$form, FormStateInterface $form_state): void {}
@@ -54,7 +46,7 @@ abstract class FormElementBase extends ThemePreviewPluginBase implements Contain
 
     };
 
-    return $this->formBuilder->getForm($form, $variation_id, $element);
+    return $this->formBuilder->getForm($form, $element);
   }
 
 }

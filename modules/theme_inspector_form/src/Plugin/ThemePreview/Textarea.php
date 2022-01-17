@@ -19,9 +19,10 @@ final class Textarea extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
     return [
-      '#title' => 'Example',
+      '#title' => \ucfirst($this->random()->name()),
       '#type' => 'textarea',
       '#description' => $this->random()->sentences(1),
+      '#disabled' => $variation_id === 'disabled',
     ];
   }
 

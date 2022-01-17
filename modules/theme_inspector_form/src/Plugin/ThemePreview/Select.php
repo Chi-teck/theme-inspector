@@ -21,8 +21,9 @@ final class Select extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
     return [
+      '#title' => \ucfirst($this->random()->name()),
       '#type' => 'select',
-      '#description' => 'Example of select element.',
+      '#description' => $this->random()->sentences(1),
       '#options' => [
         'alpha' => 'Alpha',
         'beta' => 'Beta',

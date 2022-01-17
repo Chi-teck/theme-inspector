@@ -19,8 +19,10 @@ final class Url extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
     return [
+      '#title' => \ucfirst($this->random()->name()),
       '#type' => 'url',
-      '#description' => 'Example of URL.',
+      '#description' => $this->random()->sentences(1),
+      '#disabled' => $variation_id === 'disabled',
     ];
   }
 

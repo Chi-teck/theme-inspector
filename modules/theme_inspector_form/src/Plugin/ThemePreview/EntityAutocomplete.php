@@ -19,12 +19,13 @@ final class EntityAutocomplete extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
     return [
-      '#title' => 'Example',
+      '#title' => 'Users',
       '#type' => 'entity_autocomplete',
-      '#description' => $this->random()->sentences(1),
+      '#description' => 'Select users by name.',
       '#target_type' => 'user',
       '#tags' => TRUE,
       '#selection_handler' => 'default',
+      '#disabled' => $variation_id === 'disabled',
     ];
   }
 

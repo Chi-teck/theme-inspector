@@ -19,8 +19,10 @@ final class Telephone extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
     return [
+      '#title' => \ucfirst($this->random()->name()),
       '#type' => 'tel',
-      '#description' => 'Example of telephone field.',
+      '#description' => $this->random()->sentences(1),
+      '#disabled' => $variation_id === 'disabled',
     ];
   }
 

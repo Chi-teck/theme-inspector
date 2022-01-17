@@ -19,8 +19,10 @@ final class Email extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
     return [
+      '#title' => \ucfirst($this->random()->name()),
       '#type' => 'email',
-      '#description' => 'Example of email.',
+      '#description' => $this->random()->sentences(1),
+      '#disabled' => $variation_id === 'disabled',
     ];
   }
 

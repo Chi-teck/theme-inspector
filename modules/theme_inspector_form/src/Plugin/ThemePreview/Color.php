@@ -19,8 +19,10 @@ final class Color extends FormElementBase {
 
   protected function getElement(string $variation_id): array {
     return [
+      '#title' => \ucfirst($this->random()->name()),
       '#type' => 'color',
-      '#description' => 'Example of color field.',
+      '#description' => $this->random()->sentences(1),
+      '#disabled' => $variation_id === 'disabled',
     ];
   }
 
