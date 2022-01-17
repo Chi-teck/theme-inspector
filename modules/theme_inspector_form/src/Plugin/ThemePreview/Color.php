@@ -23,6 +23,7 @@ final class Color extends FormElementBase {
       '#type' => 'color',
       '#description' => $this->random()->sentences(1),
       '#disabled' => $variation === 'disabled',
+      '#default_value' => '#339944',
     ];
   }
 

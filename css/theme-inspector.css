@@ -32,6 +32,10 @@
   opacity: 1;
 }
 
+.ti-overview a {
+  font-size: 1rem; /* Override Seven's style. */
+}
+
 .ti-overview *:focus {
   outline: solid 2px var(--ti-c-border);
   outline-offset: 2px;
