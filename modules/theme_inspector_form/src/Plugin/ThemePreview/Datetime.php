@@ -3,11 +3,11 @@
 namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
 
 /**
- * Date input preview.
+ * Dateime input preview.
  *
  * @ThemePreview(
- *   id = "date",
- *   label = @Translation("Date"),
+ *   id = "datetime",
+ *   label = @Translation("Datetime"),
  *   category = @Translation("Form Elements"),
  *   variations = {
  *     "default" = @Translation("Default"),
@@ -15,12 +15,12 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  *   },
  * )
  */
-final class Date extends FormElementBase {
+final class Datetime extends FormElementBase {
 
   protected function getElement(string $variation): array {
     return [
       '#title' => $this->random()->title(),
-      '#type' => 'date',
+      '#type' => 'datetime',
       '#description' => $this->random()->sentences(1),
       '#disabled' => $variation === 'disabled',
     ];
