@@ -3,11 +3,11 @@
 namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
 
 /**
- * Password input preview.
+ * Password confirm preview.
  *
  * @ThemePreview(
- *   id = "password",
- *   label = @Translation("Password"),
+ *   id = "password_confirm",
+ *   label = @Translation("Password confirm"),
  *   category = @Translation("Form Elements"),
  *   variations = {
  *     "default" = @Translation("Default"),
@@ -15,14 +15,13 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  *   },
  * )
  */
-final class Password extends FormElementBase {
+final class PasswordConfirm extends FormElementBase {
 
   protected function getElement(string $variation): array {
     return [
-      '#type' => 'password',
+      '#type' => 'password_confirm',
       '#title' => $this->random()->title(),
       '#size' => 25,
-      '#pattern' => '[01]+',
       '#description' => $this->random()->sentences(1),
       '#disabled' => $variation === 'disabled',
     ];
