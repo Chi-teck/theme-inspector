@@ -3,8 +3,8 @@
 namespace Drupal\theme_inspector;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\Component\Utility\Random;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\theme_inspector\Utility\Random;
 
 /**
  * Base class for theme preview plugins.

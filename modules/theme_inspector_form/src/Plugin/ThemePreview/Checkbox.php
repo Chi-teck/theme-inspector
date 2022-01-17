@@ -22,6 +22,7 @@ final class Checkbox extends FormElementBase {
   protected function getElement(string $variation): array {
     if ($variation === 'single' || $variation === 'singe_disabled') {
       $element = [
+        '#title' => $this->random()->title(),
         '#type' => 'checkbox',
         '#description' => 'Example of checkbox.',
         '#disabled' => $variation === 'singe_disabled',
@@ -29,6 +30,7 @@ final class Checkbox extends FormElementBase {
     }
     else {
       $element = [
+        '#title' => $this->random()->title(),
         '#type' => 'checkboxes',
         '#description' => 'Example of checkboxes.',
         '#disabled' => $variation === 'multiple_disabled',

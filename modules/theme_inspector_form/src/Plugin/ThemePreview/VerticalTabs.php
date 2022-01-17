@@ -23,7 +23,7 @@ final class VerticalTabs extends FormElementBase {
     for ($i = 1; $i <= 5; $i++) {
       $element['tab_' . $i] = [
         '#type' => 'details',
-        '#title' => $this->random()->sentences(2, TRUE),
+        '#title' => $this->random()->title(),
         '#group' => 'information',
         'content' => [
           '#markup' => \nl2br($this->random()->paragraphs(3)),

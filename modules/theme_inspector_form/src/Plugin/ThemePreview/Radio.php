@@ -22,7 +22,7 @@ final class Radio extends FormElementBase {
   protected function getElement(string $variation): array {
     if ($variation === 'single' || $variation === 'singe_disabled') {
       $element = [
-        '#title' => \ucfirst($this->random()->name()),
+        '#title' => $this->random()->title(),
         '#type' => 'radio',
         '#description' => 'Example of radio button.',
         '#disabled' => $variation === 'singe_disabled',
@@ -30,7 +30,7 @@ final class Radio extends FormElementBase {
     }
     else {
       $element = [
-        '#title' => \ucfirst($this->random()->name()),
+        '#title' => $this->random()->title(),
         '#type' => 'radios',
         '#description' => 'Example of radio buttons.',
         '#disabled' => $variation === 'multiple_disabled',

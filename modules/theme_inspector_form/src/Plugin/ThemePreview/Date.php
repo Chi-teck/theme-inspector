@@ -19,7 +19,7 @@ final class Date extends FormElementBase {
 
   protected function getElement(string $variation): array {
     return [
-      '#title' => \ucfirst($this->random()->name()),
+      '#title' => $this->random()->title(),
       '#type' => 'datetime',
       '#description' => $this->random()->sentences(1),
       '#disabled' => $variation === 'disabled',
