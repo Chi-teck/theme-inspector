@@ -33,10 +33,10 @@
 }
 
 .ti-overview *:focus {
-  /* Claro's outline is too aggressive. */
-  box-shadow: none !important;
   outline: solid 2px var(--ti-c-border);
   outline-offset: 2px;
+  /* Claro's outline is too aggressive. */
+  box-shadow: none !important;
 }
 
 .ti-overview[data-ti-cloak] {

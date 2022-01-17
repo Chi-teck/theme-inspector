@@ -5,10 +5,8 @@
   display: none !important;
 }
 
-.ti-preview {
-  --ti-zoom-scale: 1;
-  height: 100%;
-  padding: 0.5rem;
+#drupal-live-announce {
+  top: 0;
 }
 
 @supports (zoom: 100%) {
@@ -24,17 +22,27 @@
   }
 }
 
-html,
-body,
-.dialog-off-canvas-main-canvas {
+html {
   height: 100% !important;
 }
 
 body {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
+  height: 100% !important;
   margin: 0 !important;
   background-color: initial !important;
   background-image: initial !important;
+}
+
+.dialog-off-canvas-main-canvas {
+  height: 100% !important;
+}
+
+.ti-preview {
+  --ti-zoom-scale: 1;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0.5rem;
 }
 
 .ti-code {
