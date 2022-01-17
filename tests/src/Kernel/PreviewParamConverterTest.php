@@ -42,7 +42,7 @@ final class PreviewParamConverterTest extends KernelTestBase {
 
     $preview = $converter->convert('select', [], 'ti_preview', []);
     self::assertInstanceOf(Select::class, $preview);
-    self::assertEquals('Select', $preview->getLabel());
+    self::assertEquals('Select', $preview->getPluginDefinition()['label']);
 
     self::assertNull($converter->convert(NULL, [], 'ti_preview', []));
     self::assertNull($converter->convert('non_existing_preview', [], 'ti_preview', []));

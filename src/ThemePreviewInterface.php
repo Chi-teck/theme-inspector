@@ -7,14 +7,6 @@ namespace Drupal\theme_inspector;
  */
 interface ThemePreviewInterface {
 
-  public function id(): string;
-
-  public function getLabel(): string;
-
-  public function getCategory(): string;
-
-  public function getVariations(): array;
-
   public function build(string $variation): array;
 
 }

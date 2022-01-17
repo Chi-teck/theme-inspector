@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 abstract class FormElementBase extends ThemePreviewPluginBase implements ContainerFactoryPluginInterface {
 
+  protected const ELEMENT_KEY = 'example';
+
   public function __construct(array $configuration, $plugin_id, $plugin_definition, private FormBuilderInterface $formBuilder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -22,7 +24,10 @@ abstract class FormElementBase extends ThemePreviewPluginBase implements Contain
   }
 
   public function build(string $variation): array {
-    return $this->formBuilder->getForm(new WrapperForm(), $this->getElement($variation));
+    return $this->formBuilder->getForm(
+      new WrapperForm(),
+      [self::ELEMENT_KEY => $this->getElement($variation)],
+    );
   }
 
   abstract protected function getElement(string $variation): array;

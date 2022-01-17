@@ -12,9 +12,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class PreviewController {
 
+  /**
+   * Route callback.
+   *
+   * @todo Add PluginInspectionInterface intersection type to the preview
+   *       parameter once we drop support for PHP 8.0.
+   */
   public function __invoke(Request $request, ThemePreviewInterface $preview): array {
 
-    $variations = $preview->getVariations();
+    $variations = $preview->getPluginDefinition()['variations'];
     $variation_id = $request->query->get('variation', 'default');
     if (!\is_string($variation_id) || !\array_key_exists($variation_id, $variations)) {
       throw new NotFoundHttpException('The variation does not exist.');
@@ -22,7 +28,7 @@ final class PreviewController {
 
     return [
       '#type' => 'page',
-      '#title' => $preview->getLabel(),
+      '#title' => $preview->getPluginDefinition()['label'],
       'content' => [
         'preview' => [
           '#type' => 'container',

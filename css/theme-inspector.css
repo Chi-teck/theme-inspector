@@ -33,9 +33,10 @@
 }
 
 .ti-overview *:focus {
-  outline-color: transparent;
   /* Claro's outline is too aggressive. */
-  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--ti-c-border) !important;
+  box-shadow: none !important;
+  outline: solid 2px var(--ti-c-border);
+  outline-offset: 2px;
 }
 
 .ti-overview[data-ti-cloak] {

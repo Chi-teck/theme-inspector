@@ -18,7 +18,7 @@ final class ThemePreviewPluginManagerTest extends KernelTestBase {
     $plugin_manager = $this->container->get('plugin.manager.theme_preview');
     $plugin = $plugin_manager->createInstance('details');
     self::assertInstanceOf(ThemePreviewInterface::class, $plugin);
-    self::assertSame('details', $plugin->id());
+    self::assertSame('details', $plugin->getPluginDefinition()['id']);
   }
 
   public function testProcessDefinition(): void {

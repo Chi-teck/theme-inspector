@@ -15,24 +15,6 @@ abstract class ThemePreviewPluginBase extends PluginBase implements ThemePreview
 
   private ?Random $random = NULL;
 
-  public function id(): string {
-    return $this->getPluginId();
-  }
-
-  public function getLabel(): string {
-    // Cast the label to a string since it is a TranslatableMarkup object.
-    return (string) $this->pluginDefinition['label'];
-  }
-
-  public function getCategory(): string {
-    // Cast the label to a string since it is a TranslatableMarkup object.
-    return (string) $this->pluginDefinition['category'];
-  }
-
-  public function getVariations(): array {
-    return $this->pluginDefinition['variations'] ?? ['default' => $this->t('Default')];
-  }
-
   abstract public function build(string $variation): array;
 
   final protected function random(): Random {

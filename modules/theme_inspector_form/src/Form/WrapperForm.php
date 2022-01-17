@@ -15,7 +15,7 @@ final class WrapperForm implements FormInterface {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    return ['example' => \func_get_arg(2)];
+    return \func_get_arg(2);
   }
 
   public function validateForm(array &$form, FormStateInterface $form_state): void {}

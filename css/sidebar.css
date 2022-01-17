@@ -20,6 +20,13 @@
   padding: 0.5em 0.75em;
 }
 
+.ti-sidebar__search-input::-webkit-search-cancel-button {
+  /* stylelint-disable property-no-vendor-prefix */
+  /* noinspection CssInvalidPropertyValue */
+  -webkit-appearance: auto !important; /* Override Normalize's style. */
+  cursor: pointer;
+}
+
 .ti-sidebar__group-label {
   padding: 0.5em 0;
   cursor: pointer;
