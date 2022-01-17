@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\theme_inspector\FunctionalJavascript;
 
@@ -24,18 +24,18 @@ final class PreviewFilterTest extends WebDriverTestBase {
     $page = $this->getSession()->getPage();
 
     $default_tree = [
-      'COMMON' => [
+      'Common (4)' => [
         'Details',
         'Progress Bar',
         'Status messages',
         'Table',
       ],
-      'NAVIGATION' => [
+      'Navigation (3)' => [
         'Breadcrumbs',
         'Pager',
         'Tabs',
       ],
-      'TYPOGRAPHY' => [
+      'Typography (5)' => [
         'Blockquote',
         'Headings',
         'Inline Text',
@@ -49,16 +49,16 @@ final class PreviewFilterTest extends WebDriverTestBase {
 
     $page->fillField('Find preview', 's');
     $expected_tree = [
-      'COMMON' => [
+      'Common (3)' => [
         'Details',
         'Progress Bar',
         'Status messages',
       ],
-      'NAVIGATION' => [
+      'Navigation (2)' => [
         'Breadcrumbs',
         'Tabs',
       ],
-      'TYPOGRAPHY' => [
+      'Typography (2)' => [
         'Headings',
         'Lists',
       ],
@@ -67,10 +67,10 @@ final class PreviewFilterTest extends WebDriverTestBase {
 
     $page->fillField('Find preview', 'st');
     $expected_tree = [
-      'COMMON' => [
+      'Common (1)' => [
         'Status messages',
       ],
-      'TYPOGRAPHY' => [
+      'Typography (1)' => [
         'Lists',
       ],
     ];
@@ -78,7 +78,7 @@ final class PreviewFilterTest extends WebDriverTestBase {
 
     $page->fillField('Find preview', 'sta');
     $expected_tree = [
-      'COMMON' => [
+      'Common (1)' => [
         'Status messages',
       ],
     ];
@@ -95,23 +95,23 @@ final class PreviewFilterTest extends WebDriverTestBase {
 
   private function getTree(): array {
     $tree = [];
-    $headers = $this->getSession()->getPage()->findAll('css', 'h3[data-ti-category-header]');
-    foreach ($headers as $header) {
-      $labels = $this->getVisibleLabels(
-        $header->findAll('xpath', '/following-sibling::ul[1]/li/a'),
-      );
-      self::assertEquals($header->isVisible(), \count($labels) > 0);
-      if ($header->isVisible()) {
-        $tree[$header->getText()] = $labels;
+    $groups = $this->getSession()->getPage()->findAll('css', '[data-ti-group]');
+    foreach ($groups as $group) {
+      $labels = $this->getVisibleLabels($group->findAll('css', 'a'));
+      self::assertEquals($group->isVisible(), \count($labels) > 0);
+      if ($group->isVisible()) {
+        $tree[$group->find('css', 'summary')->getText()] = $labels;
       }
     }
     return $tree;
   }
 
   private function getVisibleLabels($links): array {
-    $is_visible = static fn (NodeElement $link): string => $link->isVisible();
-    $get_text = static fn (NodeElement $link): string => $link->getText();
-    return \array_values(\array_map($get_text, \array_filter($links, $is_visible)));
+    // Links are rendered inside collapsed "details" elements. So that
+    // `$node->isVisible()` is not suitable here.
+    $is_shown = static fn (NodeElement $link): bool => !$link->getParent()->hasAttribute('hidden');
+    $get_text = static fn (NodeElement $link): string => \trim($link->getHtml());
+    return \array_values(\array_map($get_text, \array_filter($links, $is_shown)));
   }
 
 }

@@ -95,15 +95,15 @@
 
   function Sidebar($element, state) {
     const $searchInput = $element.querySelector('[data-ti-search-input]');
-    const headers = $element.querySelectorAll('[data-ti-category-header]');
-    const links = $element.querySelectorAll('a[data-ti-preview-link]');
+    const groups = $element.querySelectorAll('[data-ti-group]');
+    const links = $element.querySelectorAll('[data-ti-preview-link]');
 
     state.activePreview.subscribe(
       activePreview => {
         links.forEach(link => {
           const isActive = new window.URL(link.href).searchParams.get('preview') === activePreview.id;
           link.setAttribute('aria-current', isActive ? 'true' : 'false');
-          link.classList.toggle('js-ti-active', isActive);
+          link.toggleAttribute('data-ti-active', isActive);
         });
       },
     );
@@ -121,8 +121,12 @@
       links.forEach(
         link => { link.parentElement.hidden = !link.innerHTML.toLowerCase().includes(input); },
       );
-      headers.forEach(
-        header => { header.hidden = !header.nextElementSibling.querySelector('li:not([hidden])'); },
+      groups.forEach(
+        group => {
+          const total = group.querySelectorAll('li:not([hidden])').length;
+          group.querySelector('[data-ti-group-counter]').innerHTML = total;
+          group.hidden = total === 0;
+        },
       );
     });
   }

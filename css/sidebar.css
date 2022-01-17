@@ -4,36 +4,54 @@
   background-color: var(--ti-c-bg);
 }
 
-.ti-sidebar__list {
-  margin: 0;
-  padding-left: var(--ti-s-p2);
-  list-style-position: outside;
-}
-
-.ti-sidebar__list a.js-ti-active {
-  color: black;
-}
-
-.ti-sidebar__h2 {
+.ti-sidebar__header {
   text-transform: uppercase;
   font-size: var(--ti-s-p1);
   font-weight: normal;
 }
 
-.ti-sidebar__h3 {
-  margin-bottom: 0.5em;
-  text-transform: uppercase;
-  font-size: var(--ti-s-0);
-  font-weight: normal;
-  line-height: 1;
-}
-
 .ti-sidebar__search {
-  margin-bottom: var(--ti-s-p2);
+  margin-bottom: var(--ti-s-0);
 }
 
 .ti-sidebar__search-input {
   display: block;
   width: 100%;
   padding: 0.5em 0.75em;
+}
+
+.ti-sidebar__group-label {
+  padding: 0.5em 0;
+  cursor: pointer;
+  text-transform: capitalize; /* Override Seven's style. */
+  font-size: var(--ti-s-0);
+  font-weight: normal;
+  line-height: 1;
+}
+
+.ti-sidebar__group-label:focus {
+  text-decoration: none !important; /* Override Seven's style. */
+}
+.ti-sidebar__group-label:focus span {
+  text-decoration: none !important; /* Override Seven's style. */
+}
+
+.ti-sidebar__group-list {
+  margin: 0;
+  padding: 0.25em 0;
+  padding-left: var(--ti-s-p2);
+  list-style-position: outside;
+}
+
+.ti-sidebar__group-item {
+  padding: 0.1em 0;
+}
+
+.ti-sidebar__group-list-link {
+  display: inline-block;
+  padding: 0.1em;
+}
+
+.ti-sidebar__group-list-link[data-ti-active] {
+  color: black;
 }
