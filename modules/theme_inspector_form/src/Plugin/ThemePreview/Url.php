@@ -17,6 +17,9 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class Url extends FormElementBase {
 
+  public static function fromRoute(string $string) {
+  }
+
   protected function getElement(string $variation): array {
     return [
       '#title' => $this->random()->title(),

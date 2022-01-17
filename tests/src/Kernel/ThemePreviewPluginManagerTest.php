@@ -77,8 +77,8 @@ final class ThemePreviewPluginManagerTest extends KernelTestBase {
     ];
     self::assertSame($categories, \array_keys($registry));
 
-    self::assertCount(4, $registry['Common']);
-    self::assertCount(3, $registry['Navigation']);
+    self::assertCount(5, $registry['Common']);
+    self::assertCount(5, $registry['Navigation']);
     self::assertCount(5, $registry['Typography']);
 
     $expected = [

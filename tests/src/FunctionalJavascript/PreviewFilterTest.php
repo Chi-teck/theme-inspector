@@ -24,14 +24,17 @@ final class PreviewFilterTest extends WebDriverTestBase {
     $page = $this->getSession()->getPage();
 
     $default_tree = [
-      'Common (4)' => [
+      'Common (5)' => [
         'Details',
+        'Page Title',
         'Progress Bar',
         'Status messages',
         'Table',
       ],
-      'Navigation (3)' => [
+      'Navigation (5)' => [
         'Breadcrumbs',
+        'Dropbutton',
+        'More Link',
         'Pager',
         'Tabs',
       ],

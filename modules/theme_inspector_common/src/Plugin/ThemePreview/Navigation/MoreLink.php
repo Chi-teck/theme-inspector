@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\theme_inspector_common\Plugin\ThemePreview;
+namespace Drupal\theme_inspector_common\Plugin\ThemePreview\Navigation;
 
 use Drupal\Core\Url;
 use Drupal\theme_inspector\ThemePreviewPluginBase;
