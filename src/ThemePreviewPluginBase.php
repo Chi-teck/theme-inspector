@@ -33,7 +33,7 @@ abstract class ThemePreviewPluginBase extends PluginBase implements ThemePreview
     return $this->pluginDefinition['variations'] ?? ['default' => $this->t('Default')];
   }
 
-  abstract public function build(string $variation_id): array;
+  abstract public function build(string $variation): array;
 
   final protected function random(): Random {
     if (!$this->random) {

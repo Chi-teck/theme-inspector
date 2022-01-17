@@ -15,6 +15,6 @@ interface ThemePreviewInterface {
 
   public function getVariations(): array;
 
-  public function build(string $variation_id): array;
+  public function build(string $variation): array;
 
 }

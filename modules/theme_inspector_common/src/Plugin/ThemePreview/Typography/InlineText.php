@@ -15,7 +15,7 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class InlineText extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     $markup = <<< 'HTML'
       <p>You can use the mark tag to <mark>highlight</mark> text.</p>
       <p><del>This line of text is meant to be treated as deleted text.</del></p>

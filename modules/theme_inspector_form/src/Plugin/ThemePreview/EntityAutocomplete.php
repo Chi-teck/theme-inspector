@@ -17,7 +17,7 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class EntityAutocomplete extends FormElementBase {
 
-  protected function getElement(string $variation_id): array {
+  protected function getElement(string $variation): array {
     return [
       '#title' => 'Users',
       '#type' => 'entity_autocomplete',
@@ -25,7 +25,7 @@ final class EntityAutocomplete extends FormElementBase {
       '#target_type' => 'user',
       '#tags' => TRUE,
       '#selection_handler' => 'default',
-      '#disabled' => $variation_id === 'disabled',
+      '#disabled' => $variation === 'disabled',
     ];
   }
 

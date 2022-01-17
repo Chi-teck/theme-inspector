@@ -23,7 +23,7 @@ final class Table extends ThemePreviewPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     $header[] = [
       'data' => 'Column #1',
     ];
@@ -44,7 +44,7 @@ final class Table extends ThemePreviewPluginBase {
     ];
 
     $rows = [];
-    if ($variation_id !== 'empty') {
+    if ($variation !== 'empty') {
       for ($i = 1; $i <= 30; $i++) {
         $rows[] = [
           $this->random()->sentences(\mt_rand(1, 1)),
@@ -61,7 +61,7 @@ final class Table extends ThemePreviewPluginBase {
       '#caption' => $this->t('Sample Table'),
       '#header' => $header,
       '#rows' => $rows,
-      '#sticky' => $variation_id === 'sticky',
+      '#sticky' => $variation === 'sticky',
       '#empty' => 'No records were found.',
     ];
     return $build;

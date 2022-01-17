@@ -19,13 +19,13 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class Radio extends FormElementBase {
 
-  protected function getElement(string $variation_id): array {
-    if ($variation_id === 'single' || $variation_id === 'singe_disabled') {
+  protected function getElement(string $variation): array {
+    if ($variation === 'single' || $variation === 'singe_disabled') {
       $element = [
         '#title' => \ucfirst($this->random()->name()),
         '#type' => 'radio',
         '#description' => 'Example of radio button.',
-        '#disabled' => $variation_id === 'singe_disabled',
+        '#disabled' => $variation === 'singe_disabled',
       ];
     }
     else {
@@ -33,7 +33,7 @@ final class Radio extends FormElementBase {
         '#title' => \ucfirst($this->random()->name()),
         '#type' => 'radios',
         '#description' => 'Example of radio buttons.',
-        '#disabled' => $variation_id === 'multiple_disabled',
+        '#disabled' => $variation === 'multiple_disabled',
         '#options' => [
           $this->random()->sentences(1),
           $this->random()->sentences(1),

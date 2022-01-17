@@ -18,14 +18,14 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class Button extends FormElementBase {
 
-  protected function getElement(string $variation_id): array {
+  protected function getElement(string $variation): array {
 
     $actions_attributes = ['style' => 'display: flex; gap: 1em; margin-bottom: 1em;'];
 
     $element['primary'] = [
       '#type' => 'actions',
       '#attributes' => $actions_attributes,
-      '#access' => $variation_id === 'primary',
+      '#access' => $variation === 'primary',
     ];
     $element['primary']['default'] = [
       '#type' => 'button',
@@ -42,7 +42,7 @@ final class Button extends FormElementBase {
     $element['secondary'] = [
       '#type' => 'actions',
       '#attributes' => $actions_attributes,
-      '#access' => $variation_id === 'secondary',
+      '#access' => $variation === 'secondary',
     ];
     $element['secondary']['default'] = [
       '#type' => 'button',
@@ -59,7 +59,7 @@ final class Button extends FormElementBase {
     $element['danger'] = [
       '#type' => 'actions',
       '#attributes' => $actions_attributes,
-      '#access' => $variation_id === 'danger',
+      '#access' => $variation === 'danger',
     ];
     $element['danger']['default'] = [
       '#type' => 'button',

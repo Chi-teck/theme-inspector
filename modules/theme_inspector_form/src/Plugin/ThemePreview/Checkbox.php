@@ -19,19 +19,19 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class Checkbox extends FormElementBase {
 
-  protected function getElement(string $variation_id): array {
-    if ($variation_id === 'single' || $variation_id === 'singe_disabled') {
+  protected function getElement(string $variation): array {
+    if ($variation === 'single' || $variation === 'singe_disabled') {
       $element = [
         '#type' => 'checkbox',
         '#description' => 'Example of checkbox.',
-        '#disabled' => $variation_id === 'singe_disabled',
+        '#disabled' => $variation === 'singe_disabled',
       ];
     }
     else {
       $element = [
         '#type' => 'checkboxes',
         '#description' => 'Example of checkboxes.',
-        '#disabled' => $variation_id === 'multiple_disabled',
+        '#disabled' => $variation === 'multiple_disabled',
         '#options' => [
           $this->random()->sentences(1),
           $this->random()->sentences(1),

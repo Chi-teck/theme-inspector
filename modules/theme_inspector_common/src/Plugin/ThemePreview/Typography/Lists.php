@@ -20,8 +20,8 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class Lists extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
-    if ($variation_id === 'definition') {
+  public function build(string $variation): array {
+    if ($variation === 'definition') {
       $build['#markup'] = <<< 'HTML'
         <dl>
           <dt>Beast of Bodmin</dt>
@@ -37,7 +37,7 @@ final class Lists extends ThemePreviewPluginBase {
       $build = [
         '#theme' => 'item_list',
         '#title' => 'My List',
-        '#list_type' => $variation_id === 'ordered' ? 'ol' : 'ul',
+        '#list_type' => $variation === 'ordered' ? 'ol' : 'ul',
         '#items' => ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
       ];
     }

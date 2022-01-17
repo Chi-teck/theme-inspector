@@ -15,7 +15,7 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class Blockquote extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     $markup = $this->random()->paragraphs(1);
     $markup .= '<blockquote>' . $this->random()->paragraphs(1) . '</blockquote>';
     $markup .= $this->random()->paragraphs(1);

@@ -24,9 +24,9 @@ final class StatusMessages extends ThemePreviewPluginBase {
 
   use StringTranslationTrait;
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
 
-    $messages = match ($variation_id) {
+    $messages = match ($variation) {
       'short' => [$this->random()->sentences(5)],
       'long' => [
         new FormattableMarkup(<<< 'HTML'

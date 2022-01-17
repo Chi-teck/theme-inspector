@@ -15,7 +15,7 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class Details extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     return [
       '#type' => 'details',
       '#title' => 'Example',

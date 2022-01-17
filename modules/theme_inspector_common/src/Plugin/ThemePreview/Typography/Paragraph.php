@@ -15,7 +15,7 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class Paragraph extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     $markup = '';
     for ($i = 1; $i <= 5; $i++) {
       $markup .= '<p>' . $this->random()->paragraphs(1) . '</p>';

@@ -21,10 +21,10 @@ abstract class FormElementBase extends ThemePreviewPluginBase implements Contain
     return new static($configuration, $plugin_id, $plugin_definition, $container->get('form_builder'));
   }
 
-  public function build(string $variation_id): array {
-    return $this->formBuilder->getForm(new WrapperForm(), $this->getElement($variation_id));
+  public function build(string $variation): array {
+    return $this->formBuilder->getForm(new WrapperForm(), $this->getElement($variation));
   }
 
-  abstract protected function getElement(string $variation_id): array;
+  abstract protected function getElement(string $variation): array;
 
 }

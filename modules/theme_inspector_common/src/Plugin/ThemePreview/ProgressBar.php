@@ -19,14 +19,14 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class ProgressBar extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     return [
       '#markup' => '<div data-ti-progress-bar></div>',
       '#attached' => [
         'library' => ['theme_inspector_common/progress_bar'],
         'drupalSettings' => [
           'themeInspector' => [
-            'progressBarTimeout' => $variation_id === 'slow' ? 500 : 100,
+            'progressBarTimeout' => $variation === 'slow' ? 500 : 100,
           ],
         ],
       ],

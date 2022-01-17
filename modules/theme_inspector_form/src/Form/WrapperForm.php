@@ -5,6 +5,9 @@ namespace Drupal\theme_inspector_form\Form;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * A simple form that renders a given element.
+ */
 final class WrapperForm implements FormInterface {
 
   public function getFormId(): string {
@@ -19,4 +22,4 @@ final class WrapperForm implements FormInterface {
 
   public function submitForm(array &$form, FormStateInterface $form_state): void {}
 
-};
+}

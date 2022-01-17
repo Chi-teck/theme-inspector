@@ -22,7 +22,7 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class LocalTasks extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     return [
       '#theme' => 'menu_local_tasks',
       '#primary' => [

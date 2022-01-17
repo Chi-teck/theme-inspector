@@ -19,7 +19,7 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class Select extends FormElementBase {
 
-  protected function getElement(string $variation_id): array {
+  protected function getElement(string $variation): array {
     return [
       '#title' => \ucfirst($this->random()->name()),
       '#type' => 'select',
@@ -29,8 +29,8 @@ final class Select extends FormElementBase {
         'beta' => 'Beta',
         'gamma' => 'Gamma',
       ],
-      '#disabled' => \str_contains($variation_id, 'disabled'),
-      '#multiple' => \str_contains($variation_id, 'multiple'),
+      '#disabled' => \str_contains($variation, 'disabled'),
+      '#multiple' => \str_contains($variation, 'multiple'),
     ];
   }
 

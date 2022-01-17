@@ -31,7 +31,7 @@ final class Pager extends ThemePreviewPluginBase implements ContainerFactoryPlug
     );
   }
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     $this->pagerManager->createPager(250, 10)->getCurrentPage();
     return ['#type' => 'pager'];
   }

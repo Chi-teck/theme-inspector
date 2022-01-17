@@ -13,7 +13,7 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class VerticalTabs extends FormElementBase {
 
-  public function getElement(string $variation_id): array {
+  public function getElement(string $variation): array {
 
     $element['information'] = [
       '#type' => 'vertical_tabs',
@@ -23,7 +23,7 @@ final class VerticalTabs extends FormElementBase {
     for ($i = 1; $i <= 5; $i++) {
       $element['tab_' . $i] = [
         '#type' => 'details',
-        '#title' => $this->random()->name(),
+        '#title' => $this->random()->sentences(2, TRUE),
         '#group' => 'information',
         'content' => [
           '#markup' => \nl2br($this->random()->paragraphs(3)),

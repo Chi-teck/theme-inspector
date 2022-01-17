@@ -17,12 +17,12 @@ namespace Drupal\theme_inspector_form\Plugin\ThemePreview;
  */
 final class Color extends FormElementBase {
 
-  protected function getElement(string $variation_id): array {
+  protected function getElement(string $variation): array {
     return [
       '#title' => \ucfirst($this->random()->name()),
       '#type' => 'color',
       '#description' => $this->random()->sentences(1),
-      '#disabled' => $variation_id === 'disabled',
+      '#disabled' => $variation === 'disabled',
     ];
   }
 

@@ -19,11 +19,11 @@ use Drupal\theme_inspector\ThemePreviewPluginBase;
  */
 final class Headings extends ThemePreviewPluginBase {
 
-  public function build(string $variation_id): array {
+  public function build(string $variation): array {
     $markup = '';
     for ($level = 1; $level <= 6; $level++) {
       $markup .= \sprintf('<h%d role="presentation">H%d. heading</h%d>', $level, $level, $level);
-      if ($variation_id === 'with_text') {
+      if ($variation === 'with_text') {
         $markup .= $this->random()->paragraphs(1);
       }
     }
