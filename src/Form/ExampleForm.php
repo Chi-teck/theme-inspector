@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Drupal\theme_inspector\Form;
 
@@ -6,11 +6,11 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Provides a Theme Inspector form.
+ * Provides a sample form for testing preview plugins.
  */
 final class ExampleForm extends FormBase {
 
-  public function getFormId() {
+  public function getFormId(): string {
     return 'theme_inspector_example';
   }
 
@@ -38,7 +38,7 @@ final class ExampleForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->messenger()->addStatus($this->t('The message has been sent.'));
+    // Deliberately empty.
   }
 
 }
