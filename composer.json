@@ -1,5 +1,5 @@
 {
-    "name": "drupal/theme_inspector",
+    "name": "chi-teck/theme_inspector",
     "type": "drupal-module",
     "description": "Theme Inspector.",
     "keywords": ["Drupal", "Theming"],
