@@ -10,7 +10,13 @@ import { ErrorHandler } from './error';
 
 window.Drupal.behaviors.themeInspector = {
   attach(context, settings) {
-    const $app = context.querySelector('[data-ti-app]');
+
+    const [$app] = once('theme-inspector', '[data-ti-app]', document.body);
+    console.log($app);
+    if (!$app) {
+      return;
+    }
+
     window.addEventListener('error', new ErrorHandler($app, Drupal.Message));
 
     const el = component => $app.querySelector(`[data-ti-${component}]`);
