@@ -13,9 +13,7 @@ use Symfony\Component\Routing\Route;
  */
 final class PreviewParamConverter implements ParamConverterInterface {
 
-  public function __construct(
-    private ThemePreviewPluginManager $pluginManager,
-  ) {}
+  public function __construct(private ThemePreviewPluginManager $pluginManager) {}
 
   public function convert($value, $definition, $name, array $defaults): ?ThemePreviewInterface {
     try {

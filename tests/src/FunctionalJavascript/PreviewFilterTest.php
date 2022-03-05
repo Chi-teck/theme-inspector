@@ -31,9 +31,10 @@ final class PreviewFilterTest extends WebDriverTestBase {
         'Status messages',
         'Table',
       ],
-      'Navigation (5)' => [
+      'Navigation (6)' => [
         'Breadcrumbs',
         'Dropbutton',
+        'Mini Pager',
         'More Link',
         'Pager',
         'Tabs',

@@ -15,9 +15,6 @@ final class ThemeParamConverterTest extends KernelTestBase {
 
   protected static $modules = ['theme_inspector', 'system'];
 
-  /**
-   * Test callback.
-   */
   public function testApplies(): void {
     $converter = $this->container->get('theme_inspector.theme_param_converter');
 

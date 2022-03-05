@@ -15,21 +15,21 @@ final class ThemePreview extends Plugin {
   /**
    * The plugin ID.
    */
-  public string $id;
+  readonly public string $id;
 
   /**
    * The human-readable name of the plugin.
    */
-  public Translation $label;
+  readonly public Translation $label;
 
   /**
    * The preview category.
    */
-  public Translation $category;
+  readonly public Translation $category;
 
   /**
    * The preview variations.
    */
-  public array $variations;
+  readonly public array $variations;
 
 }

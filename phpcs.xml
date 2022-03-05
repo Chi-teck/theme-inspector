@@ -8,6 +8,7 @@
     <exclude name="Drupal.Commenting.VariableComment.MissingVar"/>
     <exclude name="Drupal.Commenting.FunctionComment.Missing"/>
     <exclude name="Drupal.Commenting.VariableComment.Missing"/>
+    <exclude name="Drupal.Commenting.InlineComment.DocBlock"/>
   </rule>
   <rule ref="DrupalPractice">
     <exclude name="DrupalPractice.General.DescriptionT.DescriptionT"/>

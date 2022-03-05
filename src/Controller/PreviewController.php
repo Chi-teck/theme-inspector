@@ -2,6 +2,7 @@
 
 namespace Drupal\theme_inspector\Controller;
 
+use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Component\Render\FormattableMarkup as FM;
 use Drupal\theme_inspector\ThemePreviewInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,13 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class PreviewController {
 
-  /**
-   * Route callback.
-   *
-   * @todo Add PluginInspectionInterface intersection type to the preview
-   *       parameter once we drop support for PHP 8.0.
-   */
-  public function __invoke(Request $request, ThemePreviewInterface $preview): array {
+  public function __invoke(Request $request, ThemePreviewInterface&PluginInspectionInterface $preview): array {
 
     $variations = $preview->getPluginDefinition()['variations'];
     $variation_id = $request->query->get('variation', 'default');
