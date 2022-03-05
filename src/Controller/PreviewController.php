@@ -43,6 +43,9 @@ final class PreviewController {
           'theme_inspector/prism',
         ],
       ],
+      '#cache' => [
+        'max-age' => 0,
+      ]
     ];
   }
 
