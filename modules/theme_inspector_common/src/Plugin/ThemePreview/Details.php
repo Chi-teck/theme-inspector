@@ -20,7 +20,6 @@ final class Details extends ThemePreviewPluginBase {
       '#type' => 'details',
       '#title' => 'Example',
       '#open' => TRUE,
-      '#disabled' => TRUE,
       'content' => [
         '#markup' => $this->random()->sentences(25),
       ],

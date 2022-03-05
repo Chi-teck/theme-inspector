@@ -1,5 +1,5 @@
 name: Theme Inspector
 type: module
 description: Alows designers and developers to inspect theme elements.
-package: Development
-core_version_requirement: ^9
+package: Theme Inspector
+core_version_requirement: ^10
