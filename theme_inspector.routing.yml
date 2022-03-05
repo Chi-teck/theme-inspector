@@ -30,3 +30,11 @@ theme_inspector.preview:
       theme: {type: ti_theme}
       preview: {type: ti_preview}
 
+
+theme_inspector.example_form:
+  path: '/theme-inspector/example/form'
+  defaults:
+    _title: 'Example'
+    _form: 'Drupal\theme_inspector\Form\ExampleForm'
+  requirements:
+    _permission: 'access theme inspector'

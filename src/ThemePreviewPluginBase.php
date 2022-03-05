@@ -4,6 +4,7 @@ namespace Drupal\theme_inspector;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 use Drupal\theme_inspector\Utility\Random;
 
 /**
@@ -22,6 +23,10 @@ abstract class ThemePreviewPluginBase extends PluginBase implements ThemePreview
       $this->random = new Random();
     }
     return $this->random;
+  }
+
+  final protected static function getCurrentUrl(string $variation): Url {
+    return Url::fromRoute('<current>', options: ['query' => ['variation' => $variation]]);
   }
 
 }

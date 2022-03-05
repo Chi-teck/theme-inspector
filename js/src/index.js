@@ -12,7 +12,6 @@ window.Drupal.behaviors.themeInspector = {
   attach(context, settings) {
 
     const [$app] = once('theme-inspector', '[data-ti-app]', document.body);
-    console.log($app);
     if (!$app) {
       return;
     }
