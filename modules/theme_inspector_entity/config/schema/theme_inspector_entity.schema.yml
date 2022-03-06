@@ -1,0 +1,14 @@
+theme_inspector_entity.theme_inspector_entity_preview.*:
+  type: config_entity
+  label: Entity Preview
+  mapping:
+    id:
+      type: string
+      label: ID
+    label:
+      type: label
+      label: Label
+    uuid:
+      type: string
+    description:
+      type: string

@@ -1,0 +1,4 @@
+theme_inspector.settings.entity:
+  route_name: entity.theme_inspector_entity_preview.collection
+  title: 'Entities'
+  base_route: theme_inspector.settings

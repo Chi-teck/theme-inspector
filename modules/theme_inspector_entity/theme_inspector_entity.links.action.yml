@@ -1,0 +1,5 @@
+entity.theme_inspector_entity_preview.add_form:
+  route_name: 'entity.theme_inspector_entity.entity_type_form'
+  title: 'Add entity preview'
+  appears_on:
+    - entity.theme_inspector_entity_preview.collection

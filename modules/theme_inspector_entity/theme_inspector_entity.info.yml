@@ -1,0 +1,8 @@
+name: Theme Inspector Entity
+type: module
+description: Preview components for content entities.
+package: Theme Inspector
+core_version_requirement: ^10
+dependencies:
+  - theme_inspector:theme_inspector
+configure: entity.theme_inspector_entity_preview.collection

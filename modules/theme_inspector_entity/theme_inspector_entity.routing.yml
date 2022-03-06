@@ -1,0 +1,39 @@
+entity.theme_inspector_entity_preview.collection:
+  path: '/admin/config/development/theme-inspector/entity'
+  defaults:
+    _entity_list: 'theme_inspector_entity_preview'
+    _title: 'Entity Previews'
+  requirements:
+    _permission: 'administer theme_inspector_entity_preview'
+
+entity.theme_inspector_entity.entity_type_form:
+  path: '/admin/config/development/theme-inspector/entity/add'
+  defaults:
+    _form: \Drupal\theme_inspector_entity\Form\EntityTypeSelectionForm
+    _title: 'Select entity type'
+  requirements:
+    _permission: 'administer theme_inspector_entity_preview'
+
+entity.theme_inspector_entity_preview.add_form:
+  path: '/admin/config/development/theme-inspector/entity/add/{entity_type}'
+  defaults:
+    _entity_form: 'theme_inspector_entity_preview.add'
+    _title: 'Add an entity preview'
+  requirements:
+    _permission: 'administer theme_inspector_entity_preview'
+
+entity.theme_inspector_entity_preview.edit_form:
+  path: '/admin/config/development/theme-inspector/entity/{theme_inspector_entity_preview}'
+  defaults:
+    _entity_form: 'theme_inspector_entity_preview.edit'
+    _title: 'Edit an entity preview'
+  requirements:
+    _permission: 'administer theme_inspector_entity_preview'
+
+entity.theme_inspector_entity_preview.delete_form:
+  path: '/admin/config/development/theme-inspector/entity/{theme_inspector_entity_preview}/delete'
+  defaults:
+    _entity_form: 'theme_inspector_entity_preview.delete'
+    _title: 'Delete an entity preview'
+  requirements:
+    _permission: 'administer theme_inspector_entity_preview'

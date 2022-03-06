@@ -1,0 +1,5 @@
+entity.theme_inspector_entity_preview.overview:
+  title: Entity Previews
+  parent: system.admin_structure
+  description: 'List of entity previews to extend site functionality.'
+  route_name: entity.theme_inspector_entity_preview.collection
