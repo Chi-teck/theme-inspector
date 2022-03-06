@@ -1,0 +1,5 @@
+theme_inspector.settings:
+  title: Theme Inspector
+  parent: system.admin_config_development
+  description: 'Configure Theme Inspector.'
+  route_name: theme_inspector.settings

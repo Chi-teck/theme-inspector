@@ -38,3 +38,11 @@ theme_inspector.example_form:
     _form: 'Drupal\theme_inspector\Form\ExampleForm'
   requirements:
     _permission: 'access theme inspector'
+
+theme_inspector.settings:
+  path: '/admin/config/development/theme-inspector'
+  defaults:
+    _title: 'Theme Inspector Settings'
+    _form: 'Drupal\theme_inspector\Form\SettingsForm'
+  requirements:
+    _permission: 'administer theme inspector configuration'
