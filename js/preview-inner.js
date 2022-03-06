@@ -1,6 +1,10 @@
 ((Drupal => {
   Drupal.behaviors.themeInspectorPreview = {
     attach() {
+      // Showing window size only makes sense inside an iframe.
+      if (window.frameElement === null) {
+        return;
+      }
       const $previewSize = document.getElementById('ti-preview-size');
       let timer = null;
       window.addEventListener('resize', () => {

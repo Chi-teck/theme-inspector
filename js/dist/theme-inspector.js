@@ -429,7 +429,7 @@
   window.Drupal.behaviors.themeInspector = {
     attach(context, settings) {
 
-      const [$app] = once('theme-inspector', '[data-ti-app]', document.body);
+      const [$app] = once('theme-inspector', '[data-ti-app]', context);
       if (!$app) {
         return;
       }
