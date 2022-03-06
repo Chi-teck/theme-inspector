@@ -3,6 +3,7 @@
 namespace Drupal\theme_inspector_entity\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\theme_inspector_entity\EntityPreviewInterface;
 
 /**
@@ -37,22 +38,46 @@ use Drupal\theme_inspector_entity\EntityPreviewInterface;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
- *     "uuid" = "uuid",
- *     "entity_type" = "entity_type",
  *   },
  *   config_export = {
  *     "id",
  *     "label",
  *     "entity_uuid",
- *     "entity_type",
+ *     "entity_type_id",
  *   }
  * )
  */
-class EntityPreview extends ConfigEntityBase implements EntityPreviewInterface {
+final class EntityPreview extends ConfigEntityBase {
 
   protected string $id;
   protected string $label;
   protected ?string $entity_uuid;
-  protected ?string $entity_type;
+  protected string $entity_type_id;
+
+  public function getReferencedEntity(): ?EntityInterface {
+    if ($this->entity_uuid === NULL) {
+      return NULL;
+    }
+
+    if (!$this->entityTypeManager()->hasDefinition($this->entity_type_id)) {
+      return NULL;
+    }
+
+    $entities = $this->entityTypeManager()
+      ->getStorage($this->entity_type_id)
+      ->loadByProperties(['uuid' => $this->entity_uuid]);
+
+    return \count($entities) > 0 ? \reset($entities) : NULL;
+  }
+
+  public function getReferencedEntityTypeId(): string {
+    return $this->get('entity_type_id');
+  }
+
+  public function getReferencedEntityTypeLabel(): string {
+    $entity_type_definition = $this->entityTypeManager()->getDefinition($this->get('entity_type_id'), FALSE);
+    $label = $entity_type_definition ?  $entity_type_definition->getLabel() : t('Broken');
+    return (string) $label;
+  }
 
 }

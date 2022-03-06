@@ -60,21 +60,21 @@ final class ThemePreviewPluginManager extends DefaultPluginManager implements Th
     }
 
     $registry = [];
-    foreach ($this->getDefinitions() as $definition) {
+    foreach ($this->getDefinitions() as $definition_id => $definition) {
       $variations = [];
       foreach ($definition['variations'] as $id => $label) {
         $variations[$id] = [
           'label' => (string) $label,
-          'url' => $this->urlGenerator->generatePreviewUrl($theme->getName(), $definition['id'], $id),
+          'url' => $this->urlGenerator->generatePreviewUrl($theme->getName(), $definition_id, $id),
         ];
       }
-      $registry[$definition['id']] = [
-        'id' => $definition['id'],
+      $registry[$definition_id] = [
+        'id' => $definition_id,
         'label' => (string) $definition['label'],
         'category' => (string) $definition['category'],
         'url' => $this->urlGenerator->generateOverviewUrl(
           $theme->getName(),
-          $definition['id'],
+          $definition_id,
           $definition['default_variation'],
         ),
         'variations' => $variations,

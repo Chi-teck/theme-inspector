@@ -4,6 +4,7 @@ namespace Drupal\theme_inspector_entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\theme_inspector_entity\Entity\EntityPreview;
 
 /**
  * Provides a listing of entity previews.
@@ -18,21 +19,15 @@ final class EntityPreviewListBuilder extends ConfigEntityListBuilder {
     return $header + parent::buildHeader();
   }
 
-  public function buildRow(EntityInterface $preview): array {
-    /** @var \Drupal\theme_inspector_entity\EntityPreviewInterface $preview */
+  public function buildRow(EntityInterface|EntityPreview $preview): array {
     $row['label'] = $preview->label();
     $row['id'] = $preview->id();
-    $row['entity_type'] = $preview->get('entity_type');
-
-    if ($entity_uuid = $preview->get('entity_uuid')) {
-      $this->entityTypeManager = \Drupal::entityTypeManager();
-      $entities = $this->entityTypeManager->getStorage($row['entity_type'])->loadByProperties(['uuid' => $entity_uuid]);
-      if (\count($entities) > 0) {
-        $entity = \reset($entities);
-        $row['entity'] = $entity->toLink();
-      }
+    $row['entity_type'] = $preview->getReferencedEntityTypeLabel();
+    $row['entity'] = NULL;
+    if ($referenced_entity = $preview->getReferencedEntity()) {
+      $row['entity'] = $referenced_entity->hasLinkTemplate('canonical')
+        ? $referenced_entity->toLink() : $referenced_entity->label();
     }
-
     return $row + parent::buildRow($preview);
   }
 
