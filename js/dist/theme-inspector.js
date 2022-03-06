@@ -67,7 +67,7 @@
     button('auth').addEventListener('click', () => state.auth.toggle());
 
     document.addEventListener('keydown', event => {
-      if (event.key === 'F5') {
+      if (event.key === 'F5' && state.activePreview.id) {
         event.preventDefault();
         state.activePreview.reload();
       }
