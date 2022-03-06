@@ -14,6 +14,8 @@
   --ti-s-p3: calc(var(--ti-s-p2) * var(--ti-ration));
 
   --ti-c-bg: #f5f5f5;
+  --ti-c-text: #555;
+  --ti-c-text-dark: #000;
   --ti-c-border: #bbb;
   --ti-c-border-light: #ddd;
   --ti-toolbar-bg: linear-gradient(to bottom, #f6f6f6, #eee);
