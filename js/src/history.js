@@ -1,10 +1,12 @@
 export default function History(state) {
   state.activePreview.subscribe(
     activePreview => {
-      const params = new window.URLSearchParams(
-        { preview: activePreview.id, variation: activePreview.variation },
-      );
-      window.history.pushState({}, '', '?' + params.toString());
+      let url = '';
+      if (activePreview.id) {
+        const record = { preview: activePreview.id, variation: activePreview.variation };
+        url = '?' + new window.URLSearchParams(record).toString();
+      }
+      window.history.pushState({}, '', url);
     },
   );
 }
