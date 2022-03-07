@@ -14,10 +14,7 @@ export default function Preview($element, state) {
   }
 
   function debugOverlayHandler(status) {
-    const $preview = getPreviewWrapper();
-    if ($preview) {
-      $preview.classList.toggle('ti-debug-overlay', status);
-    }
+    getPreviewWrapper()?.classList.toggle('ti-debug-overlay', status);
   }
 
   function codeHandler(status) {
@@ -42,24 +39,15 @@ export default function Preview($element, state) {
   }
 
   function outlineHandler(status) {
-    const $preview = getPreviewWrapper();
-    if ($preview) {
-      $preview.classList.toggle('ti-outline', status);
-    }
+    getPreviewWrapper()?.classList.toggle('ti-outline', status);
   }
 
   function editableHandler(status) {
-    const $preview = getPreviewWrapper();
-    if ($preview) {
-      $preview.toggleAttribute('contenteditable', status);
-    }
+    getPreviewWrapper()?.toggleAttribute('contenteditable', status);
   }
 
   function zoomHandler(value) {
-    const $preview = getPreviewWrapper();
-    if ($preview) {
-      $preview.style.setProperty('--ti-zoom-scale', (value / 100).toString());
-    }
+    getPreviewWrapper()?.style.setProperty('--ti-zoom-scale', (value / 100).toString());
   }
 
   $iframe.addEventListener('load', () => {
