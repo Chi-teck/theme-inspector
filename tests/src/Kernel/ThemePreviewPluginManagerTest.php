@@ -72,6 +72,7 @@ final class ThemePreviewPluginManagerTest extends KernelTestBase {
 
     $categories = [
       'Common',
+      'Miscellaneous',
       'Navigation',
       'Typography',
     ];

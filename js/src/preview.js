@@ -11,6 +11,7 @@ export default function Preview($element, state) {
     $iframe
       .contentDocument
       .getElementById('ti-preview')
+      // @todo The iframe might display some unrelated content.
       .classList.toggle('ti-debug-overlay', status);
   }
 
