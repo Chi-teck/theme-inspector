@@ -56,15 +56,15 @@ export default function Toolbar($element, state) {
   });
 
   state.activePreview.subscribe(activePreview => {
+    $variationList.length = 0;
     if (activePreview.id) {
       enableAll(true);
-    }
-    $variationList.length = 0;
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [id, variation] of Object.entries(activePreview.definition.variations)) {
-      $variationList.add(
-        new window.Option(variation.label, id, false, id === activePreview.variation),
-      );
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [id, variation] of Object.entries(activePreview.definition.variations)) {
+        $variationList.add(
+          new window.Option(variation.label, id, false, id === activePreview.variation),
+        );
+      }
     }
     $variationList.disabled = $variationList.length === 1;
   });

@@ -19,14 +19,16 @@ export default class ActivePreview {
     this.#id = id;
     this.#variation = variation;
 
-    const previews = this.#previews;
+    if (id !== null) {
+      const previews = this.#previews;
+      if (previews[this.#id] === undefined) {
+        throw new ThemeInspectorError(`Preview "${this.#id}" does not exist.`);
+      }
+      if (previews[this.#id].variations[this.#variation] === undefined) {
+        throw new ThemeInspectorError(`Variation "${this.#variation}" does not exist.`);
+      }
+    }
 
-    if (previews[this.#id] === undefined) {
-      throw new ThemeInspectorError(`Preview "${this.#id}" does not exist.`);
-    }
-    if (previews[this.#id].variations[this.#variation] === undefined) {
-      throw new ThemeInspectorError(`Variation "${this.#variation}" does not exist.`);
-    }
     this.reload();
   }
 

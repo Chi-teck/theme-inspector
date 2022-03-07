@@ -74,15 +74,15 @@
     });
 
     state.activePreview.subscribe(activePreview => {
+      $variationList.length = 0;
       if (activePreview.id) {
         enableAll(true);
-      }
-      $variationList.length = 0;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [id, variation] of Object.entries(activePreview.definition.variations)) {
-        $variationList.add(
-          new window.Option(variation.label, id, false, id === activePreview.variation),
-        );
+        // eslint-disable-next-line no-restricted-syntax
+        for (const [id, variation] of Object.entries(activePreview.definition.variations)) {
+          $variationList.add(
+            new window.Option(variation.label, id, false, id === activePreview.variation),
+          );
+        }
       }
       $variationList.disabled = $variationList.length === 1;
     });
@@ -134,21 +134,30 @@
   function Preview($element, state) {
     const $iframe = $element.querySelector('[data-ti-preview] iframe');
 
+    function getPreviewWrapper() {
+      return $iframe.contentDocument.getElementById('ti-preview');
+    }
+
     function loadDocument() {
       $element.setAttribute('data-ti-preview-loading', '');
       $iframe.removeAttribute('srcdoc');
-      $iframe.src = state.activePreview.getUrl(state.auth.isActive);
+      if (state.activePreview.id) {
+        $iframe.src = state.activePreview.getUrl(state.auth.isActive);
+      }
     }
 
     function debugOverlayHandler(status) {
-      $iframe
-        .contentDocument
-        .getElementById('ti-preview')
-        .classList.toggle('ti-debug-overlay', status);
+      const $preview = getPreviewWrapper();
+      if ($preview) {
+        $preview.classList.toggle('ti-debug-overlay', status);
+      }
     }
 
     function codeHandler(status) {
-      const $preview = $iframe.contentDocument.getElementById('ti-preview');
+      const $preview = getPreviewWrapper();
+      if (!$preview) {
+        return;
+      }
       const $code = $iframe.contentDocument.getElementById('ti-code');
       if (status) {
         $preview.hidden = true;
@@ -166,36 +175,40 @@
     }
 
     function outlineHandler(status) {
-      $iframe
-        .contentDocument
-        .getElementById('ti-preview')
-        .classList.toggle('ti-outline', status);
+      const $preview = getPreviewWrapper();
+      if ($preview) {
+        $preview.classList.toggle('ti-outline', status);
+      }
     }
 
     function editableHandler(status) {
-      $iframe
-        .contentDocument
-        .getElementById('ti-preview')
-        .toggleAttribute('contenteditable', status);
+      const $preview = getPreviewWrapper();
+      if ($preview) {
+        $preview.toggleAttribute('contenteditable', status);
+      }
     }
 
     function zoomHandler(value) {
-      $iframe
-        .contentDocument
-        .getElementById('ti-preview')
-        .style
-        .setProperty('--ti-zoom-scale', (value / 100).toString());
+      const $preview = getPreviewWrapper();
+      if ($preview) {
+        $preview.style.setProperty('--ti-zoom-scale', (value / 100).toString());
+      }
     }
 
     $iframe.addEventListener('load', () => {
-      if ($iframe.getAttribute('srcdoc') === null) {
-        debugOverlayHandler(state.debugOverlay.isActive);
-        codeHandler(state.code.isActive);
-        editableHandler(state.editable.isActive);
-        outlineHandler(state.outline.isActive);
-        zoomHandler(state.zoom.value);
-      }
       $element.removeAttribute('data-ti-preview-loading');
+      if ($iframe.getAttribute('srcdoc') !== null) {
+        return;
+      }
+      if (!getPreviewWrapper()) {
+        state.activePreview.update(null, null);
+        return;
+      }
+      debugOverlayHandler(state.debugOverlay.isActive);
+      codeHandler(state.code.isActive);
+      editableHandler(state.editable.isActive);
+      outlineHandler(state.outline.isActive);
+      zoomHandler(state.zoom.value);
     });
 
     state.debugOverlay.subscribe(debugOverlayHandler);
@@ -394,14 +407,16 @@
       this.#id = id;
       this.#variation = variation;
 
-      const previews = this.#previews;
+      if (id !== null) {
+        const previews = this.#previews;
+        if (previews[this.#id] === undefined) {
+          throw new ThemeInspectorError(`Preview "${this.#id}" does not exist.`);
+        }
+        if (previews[this.#id].variations[this.#variation] === undefined) {
+          throw new ThemeInspectorError(`Variation "${this.#variation}" does not exist.`);
+        }
+      }
 
-      if (previews[this.#id] === undefined) {
-        throw new ThemeInspectorError(`Preview "${this.#id}" does not exist.`);
-      }
-      if (previews[this.#id].variations[this.#variation] === undefined) {
-        throw new ThemeInspectorError(`Variation "${this.#variation}" does not exist.`);
-      }
       this.reload();
     }
 
