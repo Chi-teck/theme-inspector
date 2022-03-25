@@ -16,6 +16,7 @@ final class SettingsForm extends FormBase {
   private const PROVIDERS = [
     'theme_inspector_common',
     'theme_inspector_form',
+    'theme_inspector_entity',
   ];
 
   public function __construct(private ModuleHandlerInterface $moduleHandler) {}
