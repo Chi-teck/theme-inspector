@@ -2,6 +2,6 @@ name: Theme Inspector Form
 type: module
 description: Provides additional functionality for the site.
 package: Theme Inspector
-core_version_requirement: ^10
+core_version_requirement: ^9 || ^10
 dependencies:
   - theme_inspector:theme_inspector
