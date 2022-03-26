@@ -3,9 +3,7 @@
 namespace Drupal\theme_inspector_entity\Plugin\ThemePreview;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\theme_inspector\ThemePreviewPluginBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Entity preview.

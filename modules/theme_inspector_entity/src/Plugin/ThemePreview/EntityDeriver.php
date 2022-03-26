@@ -3,6 +3,7 @@
 namespace Drupal\theme_inspector_entity\Plugin\ThemePreview;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Provides theme preview plugin definitions for entity previews.
@@ -11,9 +12,7 @@ final class EntityDeriver extends DeriverBase {
 
   public function getDerivativeDefinitions($base_plugin_definition): array {
 
-    $this->entityTypeManager = \Drupal::entityTypeManager();
-
-    $previews = $this->entityTypeManager
+    $previews = self::getEntityTypeManager()
       ->getStorage('theme_inspector_entity_preview')
       ->loadMultiple();
 
@@ -31,6 +30,10 @@ final class EntityDeriver extends DeriverBase {
     }
 
     return $this->derivatives;
+  }
+
+  private static function getEntityTypeManager(): EntityTypeManagerInterface {
+    return \Drupal::entityTypeManager();
   }
 
 }
