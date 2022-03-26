@@ -21,7 +21,7 @@ final class Entity extends ThemePreviewPluginBase {
 
     $entity_type_manager = self::getEntityTypeManager();
     /** @var \Drupal\theme_inspector_entity\Entity\EntityPreview $preview */
-    $entity_type_manager
+    $preview = $entity_type_manager
       ->getStorage('theme_inspector_entity_preview')
       ->load($this->getDerivativeId());
 
