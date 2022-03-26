@@ -4,6 +4,7 @@ namespace Drupal\theme_inspector_entity\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -72,6 +73,16 @@ final class EntityPreview extends ConfigEntityBase {
     return \count($entities) > 0 ? \reset($entities) : NULL;
   }
 
+  public function postSave(EntityStorageInterface $storage, $update = TRUE): void {
+    parent::postSave($storage, $update);
+    self::clearPreviewDefinitions();
+  }
+
+  public static function postDelete(EntityStorageInterface $storage, array $entities): void {
+    parent::postDelete($storage, $entities);
+    self::clearPreviewDefinitions();
+  }
+
   public function getReferencedEntityTypeId(): string {
     return $this->get('entity_type_id');
   }
@@ -80,6 +91,10 @@ final class EntityPreview extends ConfigEntityBase {
     $entity_type_definition = $this->entityTypeManager()->getDefinition($this->get('entity_type_id'), FALSE);
     $label = $entity_type_definition ? $entity_type_definition->getLabel() : $this->t('Broken');
     return (string) $label;
+  }
+
+  private static function clearPreviewDefinitions(): void {
+    \Drupal::service('plugin.manager.theme_preview')->clearCachedDefinitions();
   }
 
 }

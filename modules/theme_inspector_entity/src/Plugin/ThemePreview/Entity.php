@@ -15,36 +15,27 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   deriver = "Drupal\theme_inspector_entity\Plugin\ThemePreview\EntityDeriver",
  * )
  */
-final class Entity extends ThemePreviewPluginBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, private EntityTypeManagerInterface $entityTypeManager) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    return new self($configuration, $plugin_id, $plugin_definition, $container->get('entity_type.manager'));
-  }
+final class Entity extends ThemePreviewPluginBase {
 
   public function build(string $variation): array {
 
+    $entity_type_manager = self::getEntityTypeManager();
     /** @var \Drupal\theme_inspector_entity\Entity\EntityPreview $preview */
-    $preview = $this->entityTypeManager
+    $entity_type_manager
       ->getStorage('theme_inspector_entity_preview')
       ->load($this->getDerivativeId());
 
     $referenced_entity = $preview->getReferencedEntity();
     if (!$referenced_entity) {
-      return ['#markup' => ''];
+      return ['#markup' => $this->t('Could not load entity.')];
     }
 
-    $view_builder = $this->entityTypeManager->getViewBuilder($preview->getReferencedEntityTypeId());
+    $view_builder = $entity_type_manager->getViewBuilder($preview->getReferencedEntityTypeId());
     return $view_builder->view($referenced_entity, $variation);
+  }
+
+  private static function getEntityTypeManager(): EntityTypeManagerInterface {
+    return \Drupal::entityTypeManager();
   }
 
 }
