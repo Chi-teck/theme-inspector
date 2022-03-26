@@ -8,7 +8,7 @@ theme_inspector_entity.theme_inspector_entity_preview.*:
     label:
       type: label
       label: Label
-    uuid:
+    entity_type_id:
       type: string
-    description:
+    entity_uuid:
       type: string
