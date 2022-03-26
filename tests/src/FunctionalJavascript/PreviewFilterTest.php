@@ -24,12 +24,17 @@ final class PreviewFilterTest extends WebDriverTestBase {
     $page = $this->getSession()->getPage();
 
     $default_tree = [
-      'Common (5)' => [
+      'Common (7)' => [
         'Details',
+        'Dialog',
+        'Off-canvas',
         'Page Title',
         'Progress Bar',
         'Status messages',
         'Table',
+      ],
+      'Miscellaneous (1)' => [
+        'Username',
       ],
       'Navigation (6)' => [
         'Breadcrumbs',
@@ -53,10 +58,14 @@ final class PreviewFilterTest extends WebDriverTestBase {
 
     $page->fillField('Find preview', 's');
     $expected_tree = [
-      'Common (3)' => [
+      'Common (4)' => [
         'Details',
+        'Off-canvas',
         'Progress Bar',
         'Status messages',
+      ],
+      'Miscellaneous (1)' => [
+        'Username',
       ],
       'Navigation (2)' => [
         'Breadcrumbs',

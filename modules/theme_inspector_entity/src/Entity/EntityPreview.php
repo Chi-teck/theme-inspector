@@ -4,7 +4,7 @@ namespace Drupal\theme_inspector_entity\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\theme_inspector_entity\EntityPreviewInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Defines the entity preview entity type.
@@ -49,6 +49,8 @@ use Drupal\theme_inspector_entity\EntityPreviewInterface;
  */
 final class EntityPreview extends ConfigEntityBase {
 
+  use StringTranslationTrait;
+
   protected string $id;
   protected string $label;
   protected ?string $entity_uuid;
@@ -76,7 +78,7 @@ final class EntityPreview extends ConfigEntityBase {
 
   public function getReferencedEntityTypeLabel(): string {
     $entity_type_definition = $this->entityTypeManager()->getDefinition($this->get('entity_type_id'), FALSE);
-    $label = $entity_type_definition ?  $entity_type_definition->getLabel() : t('Broken');
+    $label = $entity_type_definition ? $entity_type_definition->getLabel() : $this->t('Broken');
     return (string) $label;
   }
 

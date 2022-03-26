@@ -61,7 +61,7 @@ final class SettingsFormTest extends BrowserTestBase {
   private function getCheckboxes(): array {
     $fieldset = $this->xpath('//fieldset[//legend/span[text() = "Preview providers"]]')[0];
     $checkboxes = $fieldset->findAll('xpath', '//input[@type = "checkbox"]');
-    self::assertCount(2, $checkboxes);
+    self::assertCount(3, $checkboxes);
     return $checkboxes;
   }
 
