@@ -3,7 +3,7 @@
 namespace Drupal\Tests\theme_inspector\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\theme_inspector_form\Plugin\ThemePreview\Select;
+use Drupal\theme_inspector_form\Plugin\ThemePreview\Element\Select;
 use Symfony\Component\Routing\Route;
 
 /**
