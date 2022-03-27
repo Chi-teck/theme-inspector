@@ -139,9 +139,9 @@
     }
 
     function loadDocument() {
-      $element.setAttribute('data-ti-preview-loading', '');
       $iframe.removeAttribute('srcdoc');
       if (state.activePreview.id) {
+        $element.setAttribute('data-ti-preview-loading', '');
         $iframe.src = state.activePreview.getUrl(state.auth.isActive);
       }
     }
