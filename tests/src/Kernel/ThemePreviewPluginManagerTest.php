@@ -24,18 +24,33 @@ final class ThemePreviewPluginManagerTest extends KernelTestBase {
   public function testProcessDefinition(): void {
     $plugin_manager = $this->container->get('plugin.manager.theme_preview');
 
+    // -- Fully defined definition.
     $definition = [
       'category' => 'Common',
-      'variations' => ['foo' => 'Foo'],
+      'variations' => ['foo' => 'Foo', 'bar' => 'Bar'],
+      'default_variation' => 'bar',
+      'theme' => 'claro',
+      'class' => 'Example',
     ];
     $plugin_manager->processDefinition($definition, 'example');
-    self::assertEquals($definition['category'], 'Common');
-    self::assertEquals($definition['variations'], ['foo' => 'Foo']);
+    self::assertSame($definition['category'], 'Common');
+    self::assertSame($definition['variations'], ['foo' => 'Foo', 'bar' => 'Bar']);
+    self::assertSame($definition['default_variation'], 'foo');
+    self::assertSame($definition['theme'], 'claro');
 
-    $definition = [];
+    // -- Minimally defined definition.
+    $definition = ['class' => 'Example'];
     $plugin_manager->processDefinition($definition, 'example');
     self::assertEquals($definition['category'], 'Miscellaneous');
     self::assertEquals($definition['variations'], ['default' => 'Default']);
+    self::assertEquals($definition['default_variation'], 'default');
+    self::assertNull($definition['theme']);
+
+    // -- Wrong definition.
+    $definition = [];
+    self::expectException(\LogicException::class);
+    self::expectExceptionMessage('Plugin example specifies neither class nor callback.');
+    $plugin_manager->processDefinition($definition, 'example');
   }
 
   public function testBuildRegistry(): void {

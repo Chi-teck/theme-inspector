@@ -18,7 +18,7 @@ services:
 
   plugin.manager.theme_preview:
     class: Drupal\theme_inspector\ThemePreviewPluginManager
-    arguments: ['@theme_inspector.url_generator']
+    arguments: ['@theme_inspector.url_generator', '@theme_inspector.theme_definition_discovery']
     parent: default_plugin_manager
 
   theme_inspector.authentication.guest:
@@ -29,3 +29,8 @@ services:
   theme_inspector.url_generator:
     class: Drupal\theme_inspector\Routing\UrlGenerator
     arguments: ['@url_generator.non_bubbling']
+
+  theme_inspector.theme_definition_discovery:
+    class: Drupal\theme_inspector\ThemeDefinitionDiscovery
+    arguments:
+      - '@theme_handler'

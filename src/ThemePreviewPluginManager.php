@@ -21,7 +21,13 @@ final class ThemePreviewPluginManager extends DefaultPluginManager implements Th
 
   private array $registry = [];
 
-  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler, private UrlGenerator $urlGenerator) {
+  public function __construct(
+    \Traversable $namespaces,
+    CacheBackendInterface $cache_backend,
+    ModuleHandlerInterface $module_handler,
+    private UrlGenerator $urlGenerator,
+    private ThemeDefinitionDiscovery $themeDefinitionDiscovery,
+  ) {
     parent::__construct(
       'Plugin/ThemePreview',
       $namespaces,
@@ -29,16 +35,30 @@ final class ThemePreviewPluginManager extends DefaultPluginManager implements Th
       ThemePreviewInterface::class,
       ThemePreview::class,
     );
-
     $this->alterInfo('theme_preview_info');
     $this->setCacheBackend($cache_backend, 'theme_preview_plugins');
   }
 
+  public function getDefinitions(): array {
+    $theme_definitions = $this->themeDefinitionDiscovery->getDefinitions();
+    \array_walk($theme_definitions, [self::class, 'processDefinition']);
+    $this->definitions = parent::getDefinitions() + $theme_definitions;
+    return $this->definitions;
+  }
+
   public function processDefinition(&$definition, $plugin_id): void {
     parent::processDefinition($definition, $plugin_id);
+    $definition['id'] ??= $plugin_id;
     $definition['variations'] ??= ['default' => $this->t('Default')];
     $definition['default_variation'] = \array_key_first($definition['variations']);
     $definition['category'] ??= $this->t('Miscellaneous');
+    $definition['theme'] ??= NULL;
+    if (!\array_key_exists('class', $definition)) {
+      if (!\array_key_exists('callback', $definition)) {
+        throw new \LogicException(\sprintf('Plugin %s specifies neither class nor callback.', $plugin_id));
+      }
+      $definition['class'] = ThemePreviewPluginCallback::class;
+    }
   }
 
   public function buildGroupedRegistry(Extension $theme): array {
@@ -55,17 +75,21 @@ final class ThemePreviewPluginManager extends DefaultPluginManager implements Th
 
   public function buildRegistry(Extension $theme): array {
 
-    if (isset($this->registry[$theme->getName()])) {
-      return $this->registry[$theme->getName()];
+    $theme_name = $theme->getName();
+    if (isset($this->registry[$theme_name])) {
+      return $this->registry[$theme_name];
     }
 
     $registry = [];
     foreach ($this->getDefinitions() as $definition_id => $definition) {
+      if ($definition['theme'] && $definition['theme'] !== $theme_name) {
+        continue;
+      }
       $variations = [];
       foreach ($definition['variations'] as $id => $label) {
         $variations[$id] = [
           'label' => (string) $label,
-          'url' => $this->urlGenerator->generatePreviewUrl($theme->getName(), $definition_id, $id),
+          'url' => $this->urlGenerator->generatePreviewUrl($theme_name, $definition_id, $id),
         ];
       }
       $registry[$definition_id] = [
@@ -73,7 +97,7 @@ final class ThemePreviewPluginManager extends DefaultPluginManager implements Th
         'label' => (string) $definition['label'],
         'category' => (string) $definition['category'],
         'url' => $this->urlGenerator->generateOverviewUrl(
-          $theme->getName(),
+          $theme_name,
           $definition_id,
           $definition['default_variation'],
         ),
@@ -81,7 +105,7 @@ final class ThemePreviewPluginManager extends DefaultPluginManager implements Th
       ];
     }
 
-    $this->registry[$theme->getName()] = $registry;
+    $this->registry[$theme_name] = $registry;
     return $registry;
   }
 
