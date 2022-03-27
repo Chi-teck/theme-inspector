@@ -24,7 +24,7 @@ final class DetailsTest extends KernelTestBase {
           {{ content }}
         </details>
       HTML,
-      ['content' => new Length(['min' => 50])],
+      ['content' => new Length(['min' => 50, 'allowEmptyString' => FALSE,])],
     );
     $build = $this->container
       ->get('plugin.manager.theme_preview')
