@@ -138,10 +138,13 @@
       return $iframe.contentDocument.getElementById('ti-preview');
     }
 
+    let loading = false;
+
     function loadDocument() {
       $iframe.removeAttribute('srcdoc');
       if (state.activePreview.id) {
         $element.setAttribute('data-ti-preview-loading', '');
+        loading = true;
         $iframe.src = state.activePreview.getUrl(state.auth.isActive);
       }
     }
@@ -183,7 +186,13 @@
       getPreviewWrapper()?.style.setProperty('--ti-zoom-scale', (value / 100).toString());
     }
 
-    $iframe.addEventListener('load', () => {
+    $iframe.addEventListener('load', (event) => {
+
+      //
+      const stopLoading = () => {setTimeout(() => { loading || $iframe.contentWindow.stop(); }, 0);};
+      $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
+      loading = false;
+
       $element.removeAttribute('data-ti-preview-loading');
       if ($iframe.getAttribute('srcdoc') !== null) {
         return;
@@ -197,6 +206,11 @@
       editableHandler(state.editable.isActive);
       outlineHandler(state.outline.isActive);
       zoomHandler(state.zoom.value);
+    });
+
+
+    $iframe.addEventListener('unload', () => {
+      console.log('unload');
     });
 
     state.debugOverlay.subscribe(debugOverlayHandler);
