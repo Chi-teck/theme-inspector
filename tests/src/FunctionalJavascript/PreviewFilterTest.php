@@ -36,7 +36,8 @@ final class PreviewFilterTest extends WebDriverTestBase {
       'Miscellaneous (1)' => [
         'Username',
       ],
-      'Navigation (6)' => [
+      'Navigation (7)' => [
+        'Admin Menu',
         'Breadcrumbs',
         'Dropbutton',
         'Mini Pager',
