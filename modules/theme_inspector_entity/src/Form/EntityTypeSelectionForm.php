@@ -52,8 +52,7 @@ final class EntityTypeSelectionForm extends FormBase {
     $definitions = \array_filter($definitions, $has_uuid);
 
     $get_label = static fn (EntityTypeInterface $definition): string => (string) $definition->getLabel();
-    $options = ['' => $this->t('- Select -')];
-    $options += \array_map($get_label, $definitions);
+    $options = ['' => $this->t('- Select -')] + \array_map($get_label, $definitions);
 
     $form['entity_type_id'] = [
       '#title' => $this->t('Entity Type'),
