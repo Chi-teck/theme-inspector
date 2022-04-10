@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\theme_inspector\ThemePreviewPluginBase;
 
 /**
- * Register form preview.
+ * Node form preview.
  *
  * @ThemePreview(
  *   id = "node_form",
