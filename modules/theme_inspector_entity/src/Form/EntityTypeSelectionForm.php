@@ -15,6 +15,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class EntityTypeSelectionForm extends FormBase {
 
+  /**
+   * Having preview plugins for these entity types does not make much sense.
+   */
+  private const DISALLOWED_ENTITY_TYPES = [
+    'contact_message',
+    'content_moderation_state',
+    'file',
+    'menu_link_content',
+    'path_alias',
+    'shortcut',
+    'tour',
+    'workspace',
+  ];
+
   public function __construct(private EntityTypeManagerInterface $entityTypeManager) {}
 
   public static function create(ContainerInterface $container) {
@@ -28,12 +42,18 @@ final class EntityTypeSelectionForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
 
     $has_view_builder = static fn (EntityTypeInterface $definition): bool => $definition->hasViewBuilderClass();
-    $get_label = static fn (EntityTypeInterface $definition): string => (string) $definition->getLabel();
+    $is_allowed = static fn (EntityTypeInterface $definition): bool => !\in_array($definition->id(), self::DISALLOWED_ENTITY_TYPES);
+    $has_uuid = static fn (EntityTypeInterface $definition): bool => $definition->hasKey('uuid');
 
+    $definitions = $this->entityTypeManager->getDefinitions();
+
+    $definitions = \array_filter($definitions, $has_view_builder);
+    $definitions = \array_filter($definitions, $is_allowed);
+    $definitions = \array_filter($definitions, $has_uuid);
+
+    $get_label = static fn (EntityTypeInterface $definition): string => (string) $definition->getLabel();
     $options = ['' => $this->t('- Select -')];
-    $options += \array_map(
-      $get_label, \array_filter($this->entityTypeManager->getDefinitions(), $has_view_builder),
-    );
+    $options += \array_map($get_label, $definitions);
 
     $form['entity_type_id'] = [
       '#title' => $this->t('Entity Type'),
