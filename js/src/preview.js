@@ -8,9 +8,9 @@ export default function Preview($element, state) {
   let loading = false;
 
   function loadDocument() {
-    if (state.router.id) {
+    if (state.activePreview.id) {
       loading = true;
-      const url = state.router.getPreviewUrl(state.auth.isActive);
+      const url = state.activePreview.getUrl(state.auth.isActive);
       fetch(url)
         .then(response => response.text())
         .then(data => { $iframe.setAttribute('srcdoc', data) });
@@ -66,7 +66,7 @@ export default function Preview($element, state) {
       return;
     }
     if (!getPreviewWrapper()) {
-      state.router.transitionTo(null, null);
+      state.activePreview.update(null, null);
       return;
     }
     debugOverlayHandler(state.debugOverlay.isActive);
@@ -82,6 +82,6 @@ export default function Preview($element, state) {
   state.outline.subscribe(outlineHandler);
   state.editable.subscribe(editableHandler);
   state.auth.subscribe(loadDocument);
-  state.router.subscribe(loadDocument);
+  state.activePreview.subscribe(loadDocument);
   state.zoom.subscribe(zoomHandler);
 }

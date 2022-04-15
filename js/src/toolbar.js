@@ -31,7 +31,7 @@ export default function Toolbar($element, state) {
   state.editable.subscribe(toggleHandler('editable'));
   state.auth.subscribe(toggleHandler('auth'));
 
-  if (!state.router.id) {
+  if (!state.activePreview.id) {
     enableAll(false);
   }
 
@@ -39,8 +39,8 @@ export default function Toolbar($element, state) {
     button('fullscreen').hidden = true;
   }
 
-  button('reload').addEventListener('click', () => state.router.reload());
-  button('new-window').addEventListener('click', () => window.open(state.router.getPreviewUrl(state.auth.isActive)));
+  button('reload').addEventListener('click', () => state.activePreview.reload());
+  button('new-window').addEventListener('click', () => window.open(state.activePreview.getPreviewUrl(state.auth.isActive)));
   button('fullscreen').addEventListener('click', () => state.fullscreen.toggle());
   button('debug-overlay').addEventListener('click', () => state.debugOverlay.toggle());
   button('code').addEventListener('click', () => state.code.toggle());
@@ -49,20 +49,20 @@ export default function Toolbar($element, state) {
   button('auth').addEventListener('click', () => state.auth.toggle());
 
   document.addEventListener('keydown', event => {
-    if (event.key === 'F5' && state.router.id) {
+    if (event.key === 'F5' && state.activePreview.id) {
       event.preventDefault();
-      state.router.reload();
+      state.activePreview.reload();
     }
   });
 
-  state.router.subscribe(router => {
+  state.activePreview.subscribe(activePreview => {
     $variationList.length = 0;
-    if (router.id) {
+    if (activePreview.id) {
       enableAll(true);
       // eslint-disable-next-line no-restricted-syntax
-      for (const [id, variation] of Object.entries(router.definition.variations)) {
+      for (const [id, variation] of Object.entries(activePreview.definition.variations)) {
         $variationList.add(
-          new window.Option(variation.label, id, false, id === router.variation),
+          new window.Option(variation.label, id, false, id === activePreview.variation),
         );
       }
     }
@@ -71,6 +71,6 @@ export default function Toolbar($element, state) {
 
   $variationList.addEventListener(
     'change',
-    () => state.router.transitionTo(state.router.id, $variationList.value),
+    () => state.activePreview.update(state.activePreview.id, $variationList.value),
   );
 }

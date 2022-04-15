@@ -3,10 +3,10 @@ export default function Sidebar($element, state) {
   const groups = $element.querySelectorAll('[data-ti-group]');
   const links = $element.querySelectorAll('[data-ti-preview-link]');
 
-  state.router.subscribe(
-    router => {
+  state.activePreview.subscribe(
+    activePreview => {
       links.forEach(link => {
-        const isActive = new window.URL(link.href).searchParams.get('preview') === router.id;
+        const isActive = new window.URL(link.href).searchParams.get('preview') === activePreview.id;
         link.setAttribute('aria-current', isActive ? 'true' : 'false');
         link.toggleAttribute('data-ti-active', isActive);
       });
@@ -16,7 +16,7 @@ export default function Sidebar($element, state) {
   const linkHandler = event => {
     event.preventDefault();
     const params = new window.URL(event.target.href).searchParams;
-    state.router.transitionTo(params.get('preview'), params.get('variation'));
+    state.activePreview.update(params.get('preview'), params.get('variation'));
   };
 
   links.forEach(link => link.addEventListener('click', linkHandler));

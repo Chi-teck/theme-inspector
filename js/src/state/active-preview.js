@@ -1,6 +1,6 @@
 import { ThemeInspectorError } from '../error';
 
-export default class Router {
+export default class ActivePreview {
   #previews;
   #id;
   #variation;
@@ -9,24 +9,24 @@ export default class Router {
   constructor(config) {
     this.#previews = config.previews;
     this.#subscribers = [];
+  }
 
-    window.addEventListener('popstate', () => {
+  loadFromUrl() {
+    const urlSearchParams = new window.URLSearchParams(window.location.search);
+    if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
+      this.update(urlSearchParams.get('preview'), urlSearchParams.get('variation'))
+    }
+  }
 
-      const urlSearchParams = new window.URLSearchParams(window.location.search);
-      if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
-        this.#id = urlSearchParams.get('preview');
-        this.#variation = urlSearchParams.get('variation');
-        this.reload();
-      }
-
-    });
+  reload() {
+    this.update(this.id, this.variation);
   }
 
   subscribe(sb) {
     this.#subscribers.push(sb);
   }
 
-  transitionTo(id, variation) {
+  update(id, variation) {
     this.#id = id;
     this.#variation = variation;
 
@@ -44,10 +44,10 @@ export default class Router {
     const url = '?' + new window.URLSearchParams(record).toString();
     window.history.pushState({}, '', url)
 
-    this.reload();
+    this.dispatch();
   }
 
-  reload() {
+  dispatch() {
     this.#subscribers.forEach(sb => sb(this));
   }
 
@@ -63,7 +63,7 @@ export default class Router {
     return this.#previews[this.#id];
   }
 
-  getPreviewUrl(auth) {
+  getUrl(auth) {
     return this.#previews[this.id].variations[this.variation].url + '&auth=' + (auth ? '1' : '0');
   }
 }

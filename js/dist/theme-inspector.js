@@ -49,7 +49,7 @@
     state.editable.subscribe(toggleHandler('editable'));
     state.auth.subscribe(toggleHandler('auth'));
 
-    if (!state.router.id) {
+    if (!state.activePreview.id) {
       enableAll(false);
     }
 
@@ -57,8 +57,8 @@
       button('fullscreen').hidden = true;
     }
 
-    button('reload').addEventListener('click', () => state.router.reload());
-    button('new-window').addEventListener('click', () => window.open(state.router.getPreviewUrl(state.auth.isActive)));
+    button('reload').addEventListener('click', () => state.activePreview.reload());
+    button('new-window').addEventListener('click', () => window.open(state.activePreview.getPreviewUrl(state.auth.isActive)));
     button('fullscreen').addEventListener('click', () => state.fullscreen.toggle());
     button('debug-overlay').addEventListener('click', () => state.debugOverlay.toggle());
     button('code').addEventListener('click', () => state.code.toggle());
@@ -67,20 +67,20 @@
     button('auth').addEventListener('click', () => state.auth.toggle());
 
     document.addEventListener('keydown', event => {
-      if (event.key === 'F5' && state.router.id) {
+      if (event.key === 'F5' && state.activePreview.id) {
         event.preventDefault();
-        state.router.reload();
+        state.activePreview.reload();
       }
     });
 
-    state.router.subscribe(router => {
+    state.activePreview.subscribe(activePreview => {
       $variationList.length = 0;
-      if (router.id) {
+      if (activePreview.id) {
         enableAll(true);
         // eslint-disable-next-line no-restricted-syntax
-        for (const [id, variation] of Object.entries(router.definition.variations)) {
+        for (const [id, variation] of Object.entries(activePreview.definition.variations)) {
           $variationList.add(
-            new window.Option(variation.label, id, false, id === router.variation),
+            new window.Option(variation.label, id, false, id === activePreview.variation),
           );
         }
       }
@@ -89,7 +89,7 @@
 
     $variationList.addEventListener(
       'change',
-      () => state.router.transitionTo(state.router.id, $variationList.value),
+      () => state.activePreview.update(state.activePreview.id, $variationList.value),
     );
   }
 
@@ -98,10 +98,10 @@
     const groups = $element.querySelectorAll('[data-ti-group]');
     const links = $element.querySelectorAll('[data-ti-preview-link]');
 
-    state.router.subscribe(
-      router => {
+    state.activePreview.subscribe(
+      activePreview => {
         links.forEach(link => {
-          const isActive = new window.URL(link.href).searchParams.get('preview') === router.id;
+          const isActive = new window.URL(link.href).searchParams.get('preview') === activePreview.id;
           link.setAttribute('aria-current', isActive ? 'true' : 'false');
           link.toggleAttribute('data-ti-active', isActive);
         });
@@ -111,7 +111,7 @@
     const linkHandler = event => {
       event.preventDefault();
       const params = new window.URL(event.target.href).searchParams;
-      state.router.transitionTo(params.get('preview'), params.get('variation'));
+      state.activePreview.update(params.get('preview'), params.get('variation'));
     };
 
     links.forEach(link => link.addEventListener('click', linkHandler));
@@ -141,9 +141,9 @@
     let loading = false;
 
     function loadDocument() {
-      if (state.router.id) {
+      if (state.activePreview.id) {
         loading = true;
-        const url = state.router.getPreviewUrl(state.auth.isActive);
+        const url = state.activePreview.getUrl(state.auth.isActive);
         fetch(url)
           .then(response => response.text())
           .then(data => { $iframe.setAttribute('srcdoc', data); });
@@ -199,7 +199,7 @@
         return;
       }
       if (!getPreviewWrapper()) {
-        state.router.transitionTo(null, null);
+        state.activePreview.update(null, null);
         return;
       }
       debugOverlayHandler(state.debugOverlay.isActive);
@@ -215,7 +215,7 @@
     state.outline.subscribe(outlineHandler);
     state.editable.subscribe(editableHandler);
     state.auth.subscribe(loadDocument);
-    state.router.subscribe(loadDocument);
+    state.activePreview.subscribe(loadDocument);
     state.zoom.subscribe(zoomHandler);
   }
 
@@ -263,7 +263,7 @@
   }
 
   class State {
-    #router;
+    #activePreview;
     #debugOverlay;
     #code;
     #outline;
@@ -272,8 +272,8 @@
     #fullscreen;
     #zoom;
 
-    constructor(router, fullscreen, zoom) {
-      this.#router = router;
+    constructor(activePreview, fullscreen, zoom) {
+      this.#activePreview = activePreview;
       this.#fullscreen = fullscreen;
       this.#zoom = zoom;
 
@@ -307,12 +307,7 @@
     }
 
     get activePreview() {
-      console.warn('activePreview is deprecated');
-      return this.#router;
-    }
-
-    get router() {
-      return this.#router;
+      return this.#activePreview;
     }
 
     get fullscreen() {
@@ -381,7 +376,7 @@
     };
   }
 
-  class Router {
+  class ActivePreview {
     #previews;
     #id;
     #variation;
@@ -390,24 +385,24 @@
     constructor(config) {
       this.#previews = config.previews;
       this.#subscribers = [];
+    }
 
-      window.addEventListener('popstate', () => {
+    loadFromUrl() {
+      const urlSearchParams = new window.URLSearchParams(window.location.search);
+      if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
+        this.update(urlSearchParams.get('preview'), urlSearchParams.get('variation'));
+      }
+    }
 
-        const urlSearchParams = new window.URLSearchParams(window.location.search);
-        if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
-          this.#id = urlSearchParams.get('preview');
-          this.#variation = urlSearchParams.get('variation');
-          this.reload();
-        }
-
-      });
+    reload() {
+      this.update(this.id, this.variation);
     }
 
     subscribe(sb) {
       this.#subscribers.push(sb);
     }
 
-    transitionTo(id, variation) {
+    update(id, variation) {
       this.#id = id;
       this.#variation = variation;
 
@@ -425,10 +420,10 @@
       const url = '?' + new window.URLSearchParams(record).toString();
       window.history.pushState({}, '', url);
 
-      this.reload();
+      this.dispatch();
     }
 
-    reload() {
+    dispatch() {
       this.#subscribers.forEach(sb => sb(this));
     }
 
@@ -444,7 +439,7 @@
       return this.#previews[this.#id];
     }
 
-    getPreviewUrl(auth) {
+    getUrl(auth) {
       return this.#previews[this.id].variations[this.variation].url + '&auth=' + (auth ? '1' : '0');
     }
   }
@@ -463,8 +458,9 @@
 
       const config = settings.themeInspector;
 
+      const activePreview = new ActivePreview(config);
       const state = new State(
-        new Router(config),
+        activePreview,
         new Fullscreen(el('main-content')),
         new Zoom(),
       );
@@ -472,13 +468,9 @@
       Toolbar(el('toolbar'), state);
       Sidebar(el('sidebar'), state);
       Preview(el('preview'), state);
-      // History(state);
 
-      const urlSearchParams = new window.URLSearchParams(window.location.search);
-      if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
-        state.router.transitionTo(urlSearchParams.get('preview'), urlSearchParams.get('variation'));
-      }
-
+      window.addEventListener('popstate', () => { activePreview.loadFromUrl(); });
+      activePreview.loadFromUrl();
       context.querySelector('[data-ti-cloak]').removeAttribute('data-ti-cloak');
     },
   };
