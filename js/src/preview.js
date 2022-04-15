@@ -58,7 +58,7 @@ export default function Preview($element, state) {
 
     //
     const stopLoading = () => {setTimeout(() => { loading || $iframe.contentWindow.stop() }, 0)}
-    // $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
+    $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
     loading = false;
 
     $element.removeAttribute('data-ti-preview-loading');

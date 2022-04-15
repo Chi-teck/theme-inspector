@@ -47,7 +47,6 @@ export default class Router {
     this.reload();
   }
 
-
   reload() {
     this.#subscribers.forEach(sb => sb(this));
   }
@@ -62,11 +61,6 @@ export default class Router {
 
   get definition() {
     return this.#previews[this.#id];
-  }
-
-  getUrl(auth) {
-    console.warn('getUrl method is deprecated');
-    return this.getPreviewUrl(auth);
   }
 
   getPreviewUrl(auth) {

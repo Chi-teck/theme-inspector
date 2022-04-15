@@ -138,8 +138,11 @@
       return $iframe.contentDocument.getElementById('ti-preview');
     }
 
+    let loading = false;
+
     function loadDocument() {
       if (state.router.id) {
+        loading = true;
         const url = state.router.getPreviewUrl(state.auth.isActive);
         fetch(url)
           .then(response => response.text())
@@ -185,6 +188,11 @@
     }
 
     $iframe.addEventListener('load', (event) => {
+
+      //
+      const stopLoading = () => {setTimeout(() => { loading || $iframe.contentWindow.stop(); }, 0);};
+      $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
+      loading = false;
 
       $element.removeAttribute('data-ti-preview-loading');
       if ($iframe.getAttribute('srcdoc') !== null) {
@@ -420,7 +428,6 @@
       this.reload();
     }
 
-
     reload() {
       this.#subscribers.forEach(sb => sb(this));
     }
@@ -435,11 +442,6 @@
 
     get definition() {
       return this.#previews[this.#id];
-    }
-
-    getUrl(auth) {
-      console.warn('getUrl method is deprecated');
-      return this.getPreviewUrl(auth);
     }
 
     getPreviewUrl(auth) {
