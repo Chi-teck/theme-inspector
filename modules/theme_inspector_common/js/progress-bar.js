@@ -19,7 +19,7 @@
       }
 
       const progressBar = new Drupal.ProgressBar('ti-progress-bar-demo', updateCallback);
-      progressBar.setProgress(-1, 'Initial message');
+      progressBar.setProgress(-1, 'Initial message', 'Example');
       progressBarWrapper.append(progressBar.element.get(0));
 
     }

@@ -62,12 +62,17 @@
 
 .ti-toolbar__variation-list select {
   min-width: 5em;
+  order: 10;
 }
 
-[ti-data-disabled] .ti-toolbar__variation-list label,
-[ti-data-disabled] .ti-toolbar__variation-list select {
+[ti-data-disabled] .ti-toolbar__variation-list :is(label, select),
+.ti-toolbar__variation-list :is(select[disabled], select[disabled] ~ label) {
   cursor: default;
+  color: currentColor;
+  box-shadow: none;
+  background-image: none;
 }
+
 
 .ti-toolbar__zoom-widget {
   height: 26px;
