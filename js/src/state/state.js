@@ -73,4 +73,5 @@ export default class State {
   get zoom() {
     return this.#zoom;
   }
+
 }

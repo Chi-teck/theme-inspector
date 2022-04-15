@@ -8,7 +8,6 @@ export default class ActivePreview {
 
   constructor(config) {
     this.#previews = config.previews;
-    this.#subscribers = [];
   }
 
   loadFromUrl() {

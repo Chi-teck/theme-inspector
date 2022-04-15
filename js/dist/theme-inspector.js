@@ -337,6 +337,7 @@
     get zoom() {
       return this.#zoom;
     }
+
   }
 
   function Zoom() {
@@ -384,7 +385,6 @@
 
     constructor(config) {
       this.#previews = config.previews;
-      this.#subscribers = [];
     }
 
     loadFromUrl() {
