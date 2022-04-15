@@ -8,11 +8,12 @@ export default function Preview($element, state) {
   let loading = false;
 
   function loadDocument() {
-    $iframe.removeAttribute('srcdoc');
-    if (state.activePreview.id) {
-      $element.setAttribute('data-ti-preview-loading', '');
+    if (state.router.id) {
       loading = true;
-      $iframe.src = state.activePreview.getUrl(state.auth.isActive);
+      const url = state.router.getPreviewUrl(state.auth.isActive);
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { $iframe.setAttribute('srcdoc', data) });
     }
   }
 
@@ -57,7 +58,7 @@ export default function Preview($element, state) {
 
     //
     const stopLoading = () => {setTimeout(() => { loading || $iframe.contentWindow.stop() }, 0)}
-    $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
+    // $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
     loading = false;
 
     $element.removeAttribute('data-ti-preview-loading');
@@ -65,7 +66,7 @@ export default function Preview($element, state) {
       return;
     }
     if (!getPreviewWrapper()) {
-      state.activePreview.update(null, null);
+      state.router.transitionTo(null, null);
       return;
     }
     debugOverlayHandler(state.debugOverlay.isActive);
@@ -76,15 +77,11 @@ export default function Preview($element, state) {
   });
 
 
-  $iframe.addEventListener('unload', () => {
-    console.log('unload');
-  });
-
   state.debugOverlay.subscribe(debugOverlayHandler);
   state.code.subscribe(codeHandler);
   state.outline.subscribe(outlineHandler);
   state.editable.subscribe(editableHandler);
   state.auth.subscribe(loadDocument);
-  state.activePreview.subscribe(loadDocument);
+  state.router.subscribe(loadDocument);
   state.zoom.subscribe(zoomHandler);
 }

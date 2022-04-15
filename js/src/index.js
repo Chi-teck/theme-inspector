@@ -2,10 +2,10 @@ import Toolbar from './toolbar';
 import Sidebar from './sidebar';
 import Preview from './preview';
 import Fullscreen from './state/fullscreen';
-import History from './history';
+// import History from './history';
 import State from './state/state';
 import Zoom from './state/zoom';
-import ActivePreview from './state/active-preview';
+import Router from './state/router';
 import { ErrorHandler } from './error';
 
 window.Drupal.behaviors.themeInspector = {
@@ -23,7 +23,7 @@ window.Drupal.behaviors.themeInspector = {
     const config = settings.themeInspector;
 
     const state = new State(
-      new ActivePreview(config),
+      new Router(config),
       new Fullscreen(el('main-content')),
       new Zoom(),
     );
@@ -31,11 +31,11 @@ window.Drupal.behaviors.themeInspector = {
     Toolbar(el('toolbar'), state, config);
     Sidebar(el('sidebar'), state);
     Preview(el('preview'), state);
-    History(state);
+    // History(state);
 
     const urlSearchParams = new window.URLSearchParams(window.location.search);
     if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
-      state.activePreview.update(urlSearchParams.get('preview'), urlSearchParams.get('variation'));
+      state.router.transitionTo(urlSearchParams.get('preview'), urlSearchParams.get('variation'));
     }
 
     context.querySelector('[data-ti-cloak]').removeAttribute('data-ti-cloak');

@@ -1,6 +1,6 @@
 import { ThemeInspectorError } from '../error';
 
-export default class ActivePreview {
+export default class Router {
   #previews;
   #id;
   #variation;
@@ -9,13 +9,24 @@ export default class ActivePreview {
   constructor(config) {
     this.#previews = config.previews;
     this.#subscribers = [];
+
+    window.addEventListener('popstate', () => {
+
+      const urlSearchParams = new window.URLSearchParams(window.location.search);
+      if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
+        this.#id = urlSearchParams.get('preview');
+        this.#variation = urlSearchParams.get('variation');
+        this.reload();
+      }
+
+    });
   }
 
   subscribe(sb) {
     this.#subscribers.push(sb);
   }
 
-  update(id, variation) {
+  transitionTo(id, variation) {
     this.#id = id;
     this.#variation = variation;
 
@@ -29,8 +40,13 @@ export default class ActivePreview {
       }
     }
 
+    const record = { preview: id, variation: variation }
+    const url = '?' + new window.URLSearchParams(record).toString();
+    window.history.pushState({}, '', url)
+
     this.reload();
   }
+
 
   reload() {
     this.#subscribers.forEach(sb => sb(this));
@@ -49,6 +65,11 @@ export default class ActivePreview {
   }
 
   getUrl(auth) {
+    console.warn('getUrl method is deprecated');
+    return this.getPreviewUrl(auth);
+  }
+
+  getPreviewUrl(auth) {
     return this.#previews[this.id].variations[this.variation].url + '&auth=' + (auth ? '1' : '0');
   }
 }

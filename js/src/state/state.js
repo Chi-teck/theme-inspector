@@ -1,5 +1,5 @@
 export default class State {
-  #activePreview;
+  #router;
   #debugOverlay;
   #code;
   #outline;
@@ -8,8 +8,8 @@ export default class State {
   #fullscreen;
   #zoom;
 
-  constructor(activePreview, fullscreen, zoom) {
-    this.#activePreview = activePreview;
+  constructor(router, fullscreen, zoom) {
+    this.#router = router;
     this.#fullscreen = fullscreen;
     this.#zoom = zoom;
 
@@ -43,7 +43,12 @@ export default class State {
   }
 
   get activePreview() {
-    return this.#activePreview;
+    console.warn('activePreview is deprecated');
+    return this.#router;
+  }
+
+  get router() {
+    return this.#router;
   }
 
   get fullscreen() {
