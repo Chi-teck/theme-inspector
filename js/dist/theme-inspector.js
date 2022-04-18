@@ -58,7 +58,7 @@
     }
 
     button('reload').addEventListener('click', () => state.activePreview.reload());
-    button('new-window').addEventListener('click', () => window.open(state.activePreview.getPreviewUrl(state.auth.isActive)));
+    button('new-window').addEventListener('click', () => window.open(state.activePreview.getUrl(state.auth.isActive)));
     button('fullscreen').addEventListener('click', () => state.fullscreen.toggle());
     button('debug-overlay').addEventListener('click', () => state.debugOverlay.toggle());
     button('code').addEventListener('click', () => state.code.toggle());
@@ -111,7 +111,7 @@
     const linkHandler = event => {
       event.preventDefault();
       const params = new window.URL(event.target.href).searchParams;
-      state.activePreview.update(params.get('preview'), params.get('variation'));
+      state.activePreview.update(params.get('preview'), params.get('variation'), true);
     };
 
     links.forEach(link => link.addEventListener('click', linkHandler));
@@ -132,7 +132,7 @@
   }
 
   function Preview($element, state) {
-    const $iframe = $element.querySelector('[data-ti-preview] iframe');
+    let $iframe = $element.querySelector('[data-ti-preview] iframe');
 
     function getPreviewWrapper() {
       return $iframe.contentDocument.getElementById('ti-preview');
@@ -141,13 +141,17 @@
     let loading = false;
 
     function loadDocument() {
+
+      $iframe.removeAttribute('srcdoc');
       if (state.activePreview.id) {
+        $element.setAttribute('data-ti-preview-loading', '');
         loading = true;
-        const url = state.activePreview.getUrl(state.auth.isActive);
-        fetch(url)
-          .then(response => response.text())
-          .then(data => { $iframe.setAttribute('srcdoc', data); });
+        // Use location replace instead of modifying iframe src to avoid duplicated
+        // entries in the history.
+        // @see https://stackoverflow.com/a/8681618/272927
+        $iframe.contentWindow.location.replace(state.activePreview.getUrl(state.auth.isActive));
       }
+
     }
 
     function debugOverlayHandler(status) {
@@ -188,7 +192,6 @@
     }
 
     $iframe.addEventListener('load', (event) => {
-
       //
       const stopLoading = () => {setTimeout(() => { loading || $iframe.contentWindow.stop(); }, 0);};
       $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
@@ -402,7 +405,7 @@
       this.#subscribers.push(sb);
     }
 
-    update(id, variation) {
+    update(id, variation, push = false) {
       this.#id = id;
       this.#variation = variation;
 
@@ -418,7 +421,10 @@
 
       const record = { preview: id, variation: variation };
       const url = '?' + new window.URLSearchParams(record).toString();
-      window.history.pushState({}, '', url);
+
+      if (push) {
+        window.history.pushState({}, '', url);
+      }
 
       this.dispatch();
     }
@@ -472,6 +478,7 @@
       window.addEventListener('popstate', () => { activePreview.loadFromUrl(); });
       activePreview.loadFromUrl();
       context.querySelector('[data-ti-cloak]').removeAttribute('data-ti-cloak');
+
     },
   };
 

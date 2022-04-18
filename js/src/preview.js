@@ -1,5 +1,5 @@
 export default function Preview($element, state) {
-  const $iframe = $element.querySelector('[data-ti-preview] iframe');
+  let $iframe = $element.querySelector('[data-ti-preview] iframe');
 
   function getPreviewWrapper() {
     return $iframe.contentDocument.getElementById('ti-preview');
@@ -8,13 +8,17 @@ export default function Preview($element, state) {
   let loading = false;
 
   function loadDocument() {
+
+    $iframe.removeAttribute('srcdoc');
     if (state.activePreview.id) {
+      $element.setAttribute('data-ti-preview-loading', '');
       loading = true;
-      const url = state.activePreview.getUrl(state.auth.isActive);
-      fetch(url)
-        .then(response => response.text())
-        .then(data => { $iframe.setAttribute('srcdoc', data) });
+      // Use location replace instead of modifying iframe src to avoid duplicated
+      // entries in the history.
+      // @see https://stackoverflow.com/a/8681618/272927
+      $iframe.contentWindow.location.replace(state.activePreview.getUrl(state.auth.isActive));
     }
+
   }
 
   function debugOverlayHandler(status) {
@@ -55,7 +59,6 @@ export default function Preview($element, state) {
   }
 
   $iframe.addEventListener('load', (event) => {
-
     //
     const stopLoading = () => {setTimeout(() => { loading || $iframe.contentWindow.stop() }, 0)}
     $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
@@ -75,7 +78,6 @@ export default function Preview($element, state) {
     outlineHandler(state.outline.isActive);
     zoomHandler(state.zoom.value);
   });
-
 
   state.debugOverlay.subscribe(debugOverlayHandler);
   state.code.subscribe(codeHandler);

@@ -40,7 +40,7 @@ export default function Toolbar($element, state) {
   }
 
   button('reload').addEventListener('click', () => state.activePreview.reload());
-  button('new-window').addEventListener('click', () => window.open(state.activePreview.getPreviewUrl(state.auth.isActive)));
+  button('new-window').addEventListener('click', () => window.open(state.activePreview.getUrl(state.auth.isActive)));
   button('fullscreen').addEventListener('click', () => state.fullscreen.toggle());
   button('debug-overlay').addEventListener('click', () => state.debugOverlay.toggle());
   button('code').addEventListener('click', () => state.code.toggle());

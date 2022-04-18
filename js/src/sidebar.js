@@ -16,7 +16,7 @@ export default function Sidebar($element, state) {
   const linkHandler = event => {
     event.preventDefault();
     const params = new window.URL(event.target.href).searchParams;
-    state.activePreview.update(params.get('preview'), params.get('variation'));
+    state.activePreview.update(params.get('preview'), params.get('variation'), true);
   };
 
   links.forEach(link => link.addEventListener('click', linkHandler));

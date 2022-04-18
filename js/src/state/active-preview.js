@@ -25,7 +25,7 @@ export default class ActivePreview {
     this.#subscribers.push(sb);
   }
 
-  update(id, variation) {
+  update(id, variation, push = false) {
     this.#id = id;
     this.#variation = variation;
 
@@ -41,7 +41,10 @@ export default class ActivePreview {
 
     const record = { preview: id, variation: variation }
     const url = '?' + new window.URLSearchParams(record).toString();
-    window.history.pushState({}, '', url)
+
+    if (push) {
+      window.history.pushState({}, '', url)
+    }
 
     this.dispatch();
   }

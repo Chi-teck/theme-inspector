@@ -35,5 +35,6 @@ window.Drupal.behaviors.themeInspector = {
     window.addEventListener('popstate', () => { activePreview.loadFromUrl() });
     activePreview.loadFromUrl();
     context.querySelector('[data-ti-cloak]').removeAttribute('data-ti-cloak');
+
   },
 };
