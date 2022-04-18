@@ -1,17 +1,16 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace Drupal\theme_inspector\Form;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a settings form for Theme Inspector.
+ * Configure Theme Inspector settings for this site.
  */
-final class SettingsForm extends FormBase {
+final class SettingsForm extends ConfigFormBase {
 
   private const PROVIDERS = [
     'theme_inspector_common',
@@ -19,23 +18,29 @@ final class SettingsForm extends FormBase {
     'theme_inspector_entity',
   ];
 
-  public function __construct(private ModuleHandlerInterface $moduleHandler) {}
-
-  public static function create(ContainerInterface $container): self {
-    return new self($container->get('module_handler'));
-  }
-
   public function getFormId(): string {
     return 'theme_inspector_settings';
   }
 
+  protected function getEditableConfigNames(): array {
+    return ['theme_inspector.settings'];
+  }
+
   public function buildForm(array $form, FormStateInterface $form_state): array {
+
+    $form['load_previous'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Load previous preview when switching theme'),
+      '#description' => $this->t('This might be useful for testing a component in different themes.'),
+      '#default_value' => $this->config('theme_inspector.settings')->get('load_previous'),
+    ];
 
     $default_value = [];
     $options = [];
+    $module_handler = self::getModuleHandler();
     foreach (self::PROVIDERS as $provider) {
-      $options[$provider] = $this->moduleHandler->getName($provider);
-      if ($this->moduleHandler->moduleExists($provider)) {
+      $options[$provider] = $module_handler->getName($provider);
+      if ($module_handler->moduleExists($provider)) {
         $default_value[] = $provider;
       }
     }
@@ -55,11 +60,18 @@ final class SettingsForm extends FormBase {
       );
     }
 
-    return $form;
+    return parent::buildForm($form, $form_state);
   }
 
-  public function submitForm(array &$form, FormStateInterface $form_state): array {
-    // Intentionally empty.
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $this->config('theme_inspector.settings')
+      ->set('load_previous', $form_state->getValue('load_previous'))
+      ->save();
+    parent::submitForm($form, $form_state);
+  }
+
+  private static function getModuleHandler(): ModuleHandlerInterface {
+    return \Drupal::moduleHandler();
   }
 
 }

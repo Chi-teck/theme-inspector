@@ -1,0 +1,8 @@
+# Schema for the configuration files of the Theme Inspector module.
+theme_inspector.settings:
+  type: config_object
+  label: 'Theme Inspector settings'
+  mapping:
+    load_previous:
+      type: boolean
+      label: 'Load previous preview'

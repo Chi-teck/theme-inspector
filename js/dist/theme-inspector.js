@@ -380,18 +380,23 @@
 
   class ActivePreview {
     #previews;
+    #loadPrevious;
     #id;
     #variation;
     #subscribers = [];
 
     constructor(config) {
       this.#previews = config.previews;
+      this.#loadPrevious = config.loadPrevious;
     }
 
     loadFromUrl() {
       const urlSearchParams = new window.URLSearchParams(window.location.search);
       if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
         this.update(urlSearchParams.get('preview'), urlSearchParams.get('variation'));
+      }
+      else {
+        this.#loadFromCookie();
       }
     }
 
@@ -424,6 +429,8 @@
         window.history.pushState({}, '', url);
       }
 
+      window.Cookies.set('ti-last-preview', id);
+      window.Cookies.set('ti-last-variation', variation);
       this.dispatch();
     }
 
@@ -445,6 +452,23 @@
 
     getUrl(auth) {
       return this.#previews[this.id].variations[this.variation].url + '&auth=' + (auth ? '1' : '0');
+    }
+
+    #loadFromCookie() {
+      if (!this.#loadPrevious) {
+        return;
+      }
+
+      const preview = window.Cookies.get('ti-last-preview');
+      const variation = window.Cookies.get('ti-last-variation');
+
+      if (preview && variation) {
+        // Previews might be theme specific.
+        const isExists = this.#previews[preview]?.variations[variation] !== undefined;
+        if (isExists) {
+          this.update(preview, variation, true);
+        }
+      }
     }
   }
 
