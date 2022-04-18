@@ -89,7 +89,7 @@
 
     $variationList.addEventListener(
       'change',
-      () => state.activePreview.update(state.activePreview.id, $variationList.value),
+      () => state.activePreview.update(state.activePreview.id, $variationList.value, true),
     );
   }
 
@@ -132,7 +132,7 @@
   }
 
   function Preview($element, state) {
-    let $iframe = $element.querySelector('[data-ti-preview] iframe');
+    const $iframe = $element.querySelector('[data-ti-preview] iframe');
 
     function getPreviewWrapper() {
       return $iframe.contentDocument.getElementById('ti-preview');
@@ -141,7 +141,6 @@
     let loading = false;
 
     function loadDocument() {
-
       $iframe.removeAttribute('srcdoc');
       if (state.activePreview.id) {
         $element.setAttribute('data-ti-preview-loading', '');
@@ -151,7 +150,6 @@
         // @see https://stackoverflow.com/a/8681618/272927
         $iframe.contentWindow.location.replace(state.activePreview.getUrl(state.auth.isActive));
       }
-
     }
 
     function debugOverlayHandler(status) {
@@ -191,11 +189,13 @@
       getPreviewWrapper()?.style.setProperty('--ti-zoom-scale', (value / 100).toString());
     }
 
-    $iframe.addEventListener('load', (event) => {
-      //
-      const stopLoading = () => {setTimeout(() => { loading || $iframe.contentWindow.stop(); }, 0);};
-      $iframe.contentWindow.addEventListener('beforeunload', stopLoading);
+    $iframe.addEventListener('load', () => {
       loading = false;
+
+      // Stop a user from loading URLs that are not part of the preview by clicking links and
+      // submitting forms in the inner document.
+      const stopLoading = () => { loading || $iframe.contentWindow.stop(); };
+      $iframe.contentWindow.addEventListener('beforeunload', () => { setTimeout(stopLoading, 0); });
 
       $element.removeAttribute('data-ti-preview-loading');
       if ($iframe.getAttribute('srcdoc') !== null) {
@@ -211,7 +211,6 @@
       outlineHandler(state.outline.isActive);
       zoomHandler(state.zoom.value);
     });
-
 
     state.debugOverlay.subscribe(debugOverlayHandler);
     state.code.subscribe(codeHandler);
@@ -340,7 +339,6 @@
     get zoom() {
       return this.#zoom;
     }
-
   }
 
   function Zoom() {
@@ -419,7 +417,7 @@
         }
       }
 
-      const record = { preview: id, variation: variation };
+      const record = { preview: id, variation };
       const url = '?' + new window.URLSearchParams(record).toString();
 
       if (push) {
@@ -452,8 +450,7 @@
 
   window.Drupal.behaviors.themeInspector = {
     attach(context, settings) {
-
-      const [$app] = once('theme-inspector', '[data-ti-app]', context);
+      const [$app] = window.once('theme-inspector', '[data-ti-app]', context);
       if (!$app) {
         return;
       }
@@ -478,7 +475,6 @@
       window.addEventListener('popstate', () => { activePreview.loadFromUrl(); });
       activePreview.loadFromUrl();
       context.querySelector('[data-ti-cloak]').removeAttribute('data-ti-cloak');
-
     },
   };
 

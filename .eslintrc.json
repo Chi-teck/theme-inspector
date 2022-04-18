@@ -21,7 +21,8 @@
     "lines-between-class-members": "off",
     "no-param-reassign": ["error", { "props": false }],
     "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
-    "prefer-template": "off"
+    "prefer-template": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }]
   },
   "parserOptions": {
     "ecmaVersion": "latest"

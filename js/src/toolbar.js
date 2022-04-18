@@ -71,6 +71,6 @@ export default function Toolbar($element, state) {
 
   $variationList.addEventListener(
     'change',
-    () => state.activePreview.update(state.activePreview.id, $variationList.value),
+    () => state.activePreview.update(state.activePreview.id, $variationList.value, true),
   );
 }

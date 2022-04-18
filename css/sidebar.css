@@ -8,11 +8,11 @@
 }
 
 .ti-sidebar__header {
+  margin: 0;
   text-transform: uppercase;
   font-size: var(--ti-s-p1);
   font-weight: normal;
   line-height: 1;
-  margin: 0;
 }
 
 .ti-sidebar__search-input {
@@ -66,20 +66,20 @@
 
 .ti-sidebar__footer {
   margin-top: auto;
-  border-top: solid 1px var(--ti-c-border-light);
   padding-top: var(--ti-s-0);
+  border-top: solid 1px var(--ti-c-border-light);
 }
 
 .ti-sidebar__footer a {
-  color: var(--ti-c-text);
   display: flex;
-  gap: 0.5em;
   align-items: center;
   text-decoration: none;
+  color: var(--ti-c-text);
+  gap: 0.5em;
   font-size: 0.85em !important;
 }
 
 .ti-sidebar__footer a:hover {
-  color: var(--ti-c-text-dark);
   transition: color 0.25s;
+  color: var(--ti-c-text-dark);
 }

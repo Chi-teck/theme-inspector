@@ -9,8 +9,7 @@ import { ErrorHandler } from './error';
 
 window.Drupal.behaviors.themeInspector = {
   attach(context, settings) {
-
-    const [$app] = once('theme-inspector', '[data-ti-app]', context);
+    const [$app] = window.once('theme-inspector', '[data-ti-app]', context);
     if (!$app) {
       return;
     }
@@ -32,9 +31,8 @@ window.Drupal.behaviors.themeInspector = {
     Sidebar(el('sidebar'), state);
     Preview(el('preview'), state);
 
-    window.addEventListener('popstate', () => { activePreview.loadFromUrl() });
+    window.addEventListener('popstate', () => { activePreview.loadFromUrl(); });
     activePreview.loadFromUrl();
     context.querySelector('[data-ti-cloak]').removeAttribute('data-ti-cloak');
-
   },
 };

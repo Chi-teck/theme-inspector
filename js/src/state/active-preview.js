@@ -13,7 +13,7 @@ export default class ActivePreview {
   loadFromUrl() {
     const urlSearchParams = new window.URLSearchParams(window.location.search);
     if (urlSearchParams.has('preview') && urlSearchParams.has('variation')) {
-      this.update(urlSearchParams.get('preview'), urlSearchParams.get('variation'))
+      this.update(urlSearchParams.get('preview'), urlSearchParams.get('variation'));
     }
   }
 
@@ -39,11 +39,11 @@ export default class ActivePreview {
       }
     }
 
-    const record = { preview: id, variation: variation }
+    const record = { preview: id, variation };
     const url = '?' + new window.URLSearchParams(record).toString();
 
     if (push) {
-      window.history.pushState({}, '', url)
+      window.history.pushState({}, '', url);
     }
 
     this.dispatch();
